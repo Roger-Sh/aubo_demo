@@ -1,0 +1,34 @@
+--Main Program
+
+--loop function definition
+  function loopScriptFunc_0()
+    --(Logic tree item : Move) Move
+    init_global_move_profile()
+    set_end_maxvelc(1.000000)
+    set_end_maxacc(1.000000)
+      --(Logic tree item : Waypoint) Waypoint1
+      set_current_logic_tree_item("4a0117966ac04517a6d0866ed2dfeb0d")
+      move_line({-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008}, true)
+      set_step_breakpoint()
+      --(Logic tree item : Waypoint) Waypoint2
+      set_current_logic_tree_item("c0698784164b4600a129c21f3356e16c")
+      move_line({-0.000002, 0.590693, -0.405898, 0.574206, -1.570796, -0.000007}, true)
+      set_step_breakpoint()
+      --(Logic tree item : Waypoint) Waypoint3
+      set_current_logic_tree_item("2790a8a24e4d485e985dce09a377c81d")
+      move_line({-0.346269, 0.574912, -0.432862, 0.563022, -1.570794, -0.346274}, true)
+      set_step_breakpoint()
+      --(Logic tree item : Waypoint) Waypoint4
+      set_current_logic_tree_item("44022beedc144c8495f7b8f59bd09d78")
+      move_line({-0.627503, -0.257168, -1.421910, 0.406054, -1.570792, -0.627508}, true)
+      set_step_breakpoint()
+  end
+
+--(Logic tree item : Project_Program) Project_MoveL
+  --(Logic tree item : Loop) Loop
+  while (true) do
+    sleep(0.001)
+    if (loopScriptFunc_0() == false) then
+      break
+    end
+  end

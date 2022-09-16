@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MainProgram>
+    <Condition ConditionType="Project_Program" ConditionAlias="Project_Break" ConditionUuid="b60a0ece55314cfea3ddafac1414c3db">
+        <Attribute/>
+        <Condition ConditionType="Loop" ConditionAlias="Loop" ConditionUuid="3330376ec5be40ff8edc382c0b4b000c">
+            <Attribute>
+                <LoopConditionMode>Always</LoopConditionMode>
+            </Attribute>
+            <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="3ec97b10cce946949f32c66667e6e799">
+                <Attribute>
+                    <MoveConditionMode>MoveJoint</MoveConditionMode>
+                    <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                    <ArrivalAheadType>None</ArrivalAheadType>
+                    <EnableArrivalAhead>false</EnableArrivalAhead>
+                    <EnableOffset>false</EnableOffset>
+                    <JointAcc>50,50,50,50,50,50</JointAcc>
+                    <JointSpeed>50,50,50,50,50,50</JointSpeed>
+                    <OffsetCoordName></OffsetCoordName>
+                    <OffsetCoordType>BaseCoord</OffsetCoordType>
+                    <OffsetRX></OffsetRX>
+                    <OffsetRY></OffsetRY>
+                    <OffsetRZ></OffsetRZ>
+                    <OffsetX></OffsetX>
+                    <OffsetY></OffsetY>
+                    <OffsetZ></OffsetZ>
+                </Attribute>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint1" ConditionUuid="4cecfae4c8f1454089f76acbcc336a79">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>0.000000,-0.215500,0.985000,0.707107,0.707107,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000</FixedPoint>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint2" ConditionUuid="d2da468a2a884d2295b45f21c047df85">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.400319,-0.121499,0.547598,0.000003,0.707109,-0.707105,-0.000002,-0.000003,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                    </Attribute>
+                </Condition>
+            </Condition>
+            <Condition ConditionType="If" ConditionAlias="If" ConditionUuid="71bda90975504f0083dd28ced01b4040">
+                <Attribute>
+                    <Exp>V_D_dx == 1</Exp>
+                </Attribute>
+                <Condition ConditionType="Break" ConditionAlias="Break" ConditionUuid="02582549824c4aac9b7b3bc0184fe3bd">
+                    <Attribute/>
+                </Condition>
+            </Condition>
+        </Condition>
+        <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="ea1f5634853a48f193860b9fd139bb44">
+            <Attribute>
+                <MoveConditionMode>MoveJoint</MoveConditionMode>
+                <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                <ArrivalAheadType>None</ArrivalAheadType>
+                <EnableArrivalAhead>false</EnableArrivalAhead>
+                <EnableOffset>false</EnableOffset>
+                <JointAcc>50,50,50,50,50,50</JointAcc>
+                <JointSpeed>50,50,50,50,50,50</JointSpeed>
+                <OffsetCoordName></OffsetCoordName>
+                <OffsetCoordType>BaseCoord</OffsetCoordType>
+                <OffsetRX></OffsetRX>
+                <OffsetRY></OffsetRY>
+                <OffsetRZ></OffsetRZ>
+                <OffsetX></OffsetX>
+                <OffsetY></OffsetY>
+                <OffsetZ></OffsetZ>
+            </Attribute>
+            <Condition ConditionType="Waypoint" ConditionAlias="Waypoint3" ConditionUuid="b1421131608b47078249bf7e1759bc67">
+                <Attribute>
+                    <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                    <FixedPoint>-0.400318,-0.121499,0.186289,0.000000,0.707109,-0.707105,0.000000,-0.000003,-0.006198,-2.222502,-0.645508,-1.570796,-0.000008</FixedPoint>
+                </Attribute>
+            </Condition>
+        </Condition>
+    </Condition>
+</MainProgram>

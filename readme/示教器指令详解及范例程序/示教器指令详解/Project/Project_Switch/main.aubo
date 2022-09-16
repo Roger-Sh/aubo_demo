@@ -1,0 +1,47 @@
+--Main Program
+
+--loop function definition
+  function loopScriptFunc_0()
+    --(Logic tree item : Switch) Switch
+    --Switch Condition : get_global_variable("V_D_dx")
+      --(Logic tree item : Case) Case
+      if ((get_global_variable("V_D_dx")) == (1)) then
+        --(Logic tree item : Move) Move
+        init_global_move_profile()
+        set_joint_maxvelc({1.298089,1.298089,1.298089,1.555088,1.555088,1.555088})
+        set_joint_maxacc({8.654390,8.654390,8.654390,10.368128,10.368128,10.368128})
+          --(Logic tree item : Waypoint) Waypoint1
+          set_current_logic_tree_item("03c7afea00bc444d92d53ebbdd5875f7")
+          move_joint({-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008}, true)
+          set_step_breakpoint()
+      --(Logic tree item : Case) Case
+      elseif ((get_global_variable("V_D_dx")) == (2)) then
+        --(Logic tree item : Move) Move
+        init_global_move_profile()
+        set_joint_maxvelc({1.298089,1.298089,1.298089,1.555088,1.555088,1.555088})
+        set_joint_maxacc({8.654390,8.654390,8.654390,10.368128,10.368128,10.368128})
+          --(Logic tree item : Waypoint) Waypoint2
+          set_current_logic_tree_item("d88d8ae7119f4ce9a870e0e68e52a8c3")
+          move_joint({-0.000003, -0.115384, -2.096494, -0.410313, -1.570796, -0.000008}, true)
+          set_step_breakpoint()
+      --(Logic tree item : Default) Default
+      else
+        --(Logic tree item : Move) Move
+        init_global_move_profile()
+        set_joint_maxvelc({1.298089,1.298089,1.298089,1.555088,1.555088,1.555088})
+        set_joint_maxacc({8.654390,8.654390,8.654390,10.368128,10.368128,10.368128})
+          --(Logic tree item : Waypoint) Waypoint3
+          set_current_logic_tree_item("2794d3d1f5454253abebc06b7b4ad852")
+          move_joint({0.478242, 0.161213, -1.812433, -0.402850, -1.570799, 0.478237}, true)
+          set_step_breakpoint()
+      end
+  end
+
+--(Logic tree item : Project_Program) Project_Switch
+  --(Logic tree item : Loop) Loop
+  while (true) do
+    sleep(0.001)
+    if (loopScriptFunc_0() == false) then
+      break
+    end
+  end

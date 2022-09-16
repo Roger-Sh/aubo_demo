@@ -30,7 +30,7 @@ git clone -b melodic https://github.com/AuboRobot/aubo_robot
 rosdep install --from-paths src --ignore-src -r -y
 
 # 检查所有CMakeLists 中与melodic相关的内容
-# 某些cmake中遗漏了melodic的检测, 可能导致Eigen3无法找到
+# 某些cmake中遗漏了melodic的检测, 可能导致Eigen3无法找到 !!
 
 # 对‘vtable for google::protobuf::MessageLite’未定义的引用
 # https://github.com/AuboRobot/aubo_robot/issues/73

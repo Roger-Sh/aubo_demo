@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ThreadProgram>
+    <Condition ConditionType="Thread" ConditionAlias="Thread" ConditionUuid="ed018dd26df24a6dad37bfa12198a819">
+        <Attribute>
+            <ThreadName>Thread</ThreadName>
+        </Attribute>
+        <Condition ConditionType="Loop" ConditionAlias="Loop" ConditionUuid="84399e64750e47348aabee5a130f164e">
+            <Attribute>
+                <LoopConditionMode>Always</LoopConditionMode>
+            </Attribute>
+            <Condition ConditionType="Wait" ConditionAlias="Wait" ConditionUuid="acb9893b4c2f46569565828fa2436e56">
+                <Attribute>
+                    <WaitConditionMode>Time</WaitConditionMode>
+                    <WaitTime>1</WaitTime>
+                </Attribute>
+            </Condition>
+            <Condition ConditionType="If" ConditionAlias="If" ConditionUuid="55f1d9fa2d0b48e7ac8941d675f15ac7">
+                <Attribute>
+                    <Exp>V_D_dx == 1</Exp>
+                </Attribute>
+                <Condition ConditionType="Set" ConditionAlias="Set" ConditionUuid="cf7a4f33aa1b4a5c95396aae88b2c342">
+                    <Attribute>
+                        <SetConditionMode>Variable</SetConditionMode>
+                        <VarAssignmentExp>0</VarAssignmentExp>
+                        <VarName>V_D_dx</VarName>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Goto" ConditionAlias="Goto" ConditionUuid="ea17af2eb4cd46019c0e02db976201ac">
+                    <Attribute/>
+                    <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="0cdc5647a0c74408a93e6f3910f5c2dd">
+                        <Attribute>
+                            <MoveConditionMode>MoveJoint</MoveConditionMode>
+                            <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                            <ArrivalAheadType>None</ArrivalAheadType>
+                            <EnableArrivalAhead>false</EnableArrivalAhead>
+                            <EnableOffset>false</EnableOffset>
+                            <JointAcc>50,50,50,50,50,50</JointAcc>
+                            <JointSpeed>50,50,50,50,50,50</JointSpeed>
+                            <OffsetCoordName></OffsetCoordName>
+                            <OffsetCoordType>BaseCoord</OffsetCoordType>
+                            <OffsetRX></OffsetRX>
+                            <OffsetRY></OffsetRY>
+                            <OffsetRZ></OffsetRZ>
+                            <OffsetX></OffsetX>
+                            <OffsetY></OffsetY>
+                            <OffsetZ></OffsetZ>
+                        </Attribute>
+                        <Condition ConditionType="Waypoint" ConditionAlias="WaypointC" ConditionUuid="bd400d88e5ee40c696e2ee3d4dc4b683">
+                            <Attribute>
+                                <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                                <FixedPoint>0.122624,-0.399976,0.547598,0.000004,0.999999,0.001409,0.000000,1.573606,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                            </Attribute>
+                        </Condition>
+                    </Condition>
+                </Condition>
+            </Condition>
+        </Condition>
+    </Condition>
+</ThreadProgram>

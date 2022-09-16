@@ -1,0 +1,39 @@
+--Main Program
+
+--loop function definition
+  function loopScriptFunc_0()
+    --(Logic tree item : Move) Move
+    init_global_move_profile()
+    set_joint_maxvelc({0.261799,0.261799,0.261799,0.314159,0.314159,0.314159})
+      --(Logic tree item : Waypoint) Waypoint1
+      set_current_logic_tree_item("5b1bb2b7e00a4a8582f77219fd5c7c5d")
+      add_waypoint({-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008})
+      --(Logic tree item : Waypoint) Waypoint2
+      set_current_logic_tree_item("1a85540abbdc43988745595812fb02db")
+      add_waypoint({-0.181336, 0.072366, -1.127865, 0.370565, -1.570795, -0.181341})
+      --(Logic tree item : Waypoint) Waypoint3
+      set_current_logic_tree_item("9d475ce198cb4d07a67795c908851ed4")
+      add_waypoint({-0.455729, -0.246076, -1.414078, 0.402795, -1.570793, -0.455734})
+      --(Logic tree item : Waypoint) Waypoint4
+      set_current_logic_tree_item("80e406ba9a084a8b89be0bbdf8873bc6")
+      add_waypoint({-0.479322, 0.164639, -1.022865, 0.383292, -1.570793, -0.479327})
+      move_track(MoveTrackType.JOINT_GNUBSPLINEINTP, true)
+      set_step_breakpoint()
+    --(Logic tree item : Move) Move
+    init_global_move_profile()
+    set_joint_maxvelc({1.298089,1.298089,1.298089,1.555088,1.555088,1.555088})
+    set_joint_maxacc({8.654390,8.654390,8.654390,10.368128,10.368128,10.368128})
+      --(Logic tree item : Waypoint) Waypoint1
+      set_current_logic_tree_item("342bc19308fd498b9825408522e1fd97")
+      move_joint({-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008}, true)
+      set_step_breakpoint()
+  end
+
+--(Logic tree item : Project_Program) Project_BSpline
+  --(Logic tree item : Loop) Loop
+  while (true) do
+    sleep(0.001)
+    if (loopScriptFunc_0() == false) then
+      break
+    end
+  end

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MainProgram>
+    <Condition ConditionType="Project_Program" ConditionAlias="Project_MoveL" ConditionUuid="24cab06f247a4a69aa52e2cef73cc213">
+        <Attribute/>
+        <Condition ConditionType="Loop" ConditionAlias="Loop" ConditionUuid="fee7fa7145614bf8ae108e7c304abb0d">
+            <Attribute>
+                <LoopConditionMode>Always</LoopConditionMode>
+            </Attribute>
+            <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="06a833421c414af99003383c07d572b7">
+                <Attribute>
+                    <MoveConditionMode>MoveLine</MoveConditionMode>
+                    <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                    <ArrivalAheadType>None</ArrivalAheadType>
+                    <EnableArrivalAhead>false</EnableArrivalAhead>
+                    <EnableOffset>false</EnableOffset>
+                    <EndLinearAcc>50</EndLinearAcc>
+                    <EndLinearSpeed>50</EndLinearSpeed>
+                    <OffsetCoordName>Base</OffsetCoordName>
+                    <OffsetCoordType>BaseCoord</OffsetCoordType>
+                    <OffsetRX></OffsetRX>
+                    <OffsetRY></OffsetRY>
+                    <OffsetRZ></OffsetRZ>
+                    <OffsetX></OffsetX>
+                    <OffsetY></OffsetY>
+                    <OffsetZ></OffsetZ>
+                </Attribute>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint1" ConditionUuid="4a0117966ac04517a6d0866ed2dfeb0d">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.400319,-0.121499,0.547598,0.000003,0.707109,-0.707105,-0.000002,-0.000003,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint2" ConditionUuid="c0698784164b4600a129c21f3356e16c">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.645429,-0.121499,0.547598,0.000000,0.707109,-0.707105,0.000000,-0.000002,0.590693,-0.405898,0.574206,-1.570796,-0.000007</FixedPoint>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint3" ConditionUuid="2790a8a24e4d485e985dce09a377c81d">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.645429,0.103708,0.547598,0.000001,0.707109,-0.707105,0.000001,-0.346269,0.574912,-0.432862,0.563022,-1.570794,-0.346274</FixedPoint>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint4" ConditionUuid="44022beedc144c8495f7b8f59bd09d78">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.349928,0.103708,0.547598,0.000002,0.707109,-0.707105,0.000000,-0.627503,-0.257168,-1.421910,0.406054,-1.570792,-0.627508</FixedPoint>
+                    </Attribute>
+                </Condition>
+            </Condition>
+        </Condition>
+    </Condition>
+</MainProgram>

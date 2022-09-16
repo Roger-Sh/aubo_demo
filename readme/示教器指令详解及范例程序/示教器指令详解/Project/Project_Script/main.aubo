@@ -1,0 +1,38 @@
+--Main Program
+
+--block script function definition
+  function blockScriptFunc_test_04()
+    
+    wp1 = {-16.418907,11.715555,-133.748860,-55.472799,-89.999982,-14.340675}
+    wp2 = {-16.898397,-10.512184,-88.484384,12.019414,-89.999914,-14.820165}
+    
+    --角度转弧度
+    function deg_to_rad(table1)
+    	table_ret = {}
+    	for i = 1,#table1,1 do
+    		table_ret[i] = d2r(table1[i])
+    	end
+    	return table_ret
+    end
+    
+    wp1_rad = deg_to_rad(wp1)
+    wp2_rad = deg_to_rad(wp2)
+    
+    i = 1
+    --while循环3次
+    while(i <= 3) do
+    	init_global_move_profile()
+    	set_joint_maxacc({1,1,1,1,1,1})
+    	set_joint_maxvelc({1,1,1,1,1,1})
+    
+    	move_joint(wp1_rad,true)
+    	move_joint(wp2_rad,true)
+    	i = i + 1
+    end
+  end  --function blockScriptFunc_test_04()
+
+--(Logic tree item : Project_Program) Project_Script
+  --(Logic tree item : Script) test_04
+  set_current_logic_tree_item("6abf0a4e1e74429688487186d734b7d9")
+  blockScriptFunc_test_04()
+  set_step_breakpoint()

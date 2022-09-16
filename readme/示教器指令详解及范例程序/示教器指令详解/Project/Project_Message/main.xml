@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MainProgram>
+    <Condition ConditionType="Project_Program" ConditionAlias="Project_Message" ConditionUuid="4ae9e37592f34e4dbec8fe72a88f8764">
+        <Attribute/>
+        <Condition ConditionType="Loop" ConditionAlias="Loop" ConditionUuid="895792c4c784421aa0bc8943a225c8b0">
+            <Attribute>
+                <LoopConditionMode>Always</LoopConditionMode>
+            </Attribute>
+            <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="63dbd6b7a6814a96af3aa273873f17a2">
+                <Attribute>
+                    <MoveConditionMode>MoveJoint</MoveConditionMode>
+                    <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                    <ArrivalAheadType>None</ArrivalAheadType>
+                    <EnableArrivalAhead>false</EnableArrivalAhead>
+                    <EnableOffset>false</EnableOffset>
+                    <JointAcc>50,50,50,50,50,50</JointAcc>
+                    <JointSpeed>50,50,50,50,50,50</JointSpeed>
+                    <OffsetCoordName></OffsetCoordName>
+                    <OffsetCoordType>BaseCoord</OffsetCoordType>
+                    <OffsetRX></OffsetRX>
+                    <OffsetRY></OffsetRY>
+                    <OffsetRZ></OffsetRZ>
+                    <OffsetX></OffsetX>
+                    <OffsetY></OffsetY>
+                    <OffsetZ></OffsetZ>
+                </Attribute>
+                <Condition ConditionType="Waypoint" ConditionAlias="WaypointA" ConditionUuid="d2d914bf740a45158fe0e70348d42e8f">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.400319,-0.121499,0.547598,0.000003,0.707109,-0.707105,-0.000002,-0.000003,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Waypoint" ConditionAlias="WaypointB" ConditionUuid="9079e7fa3c7246c48460d9ef59898e68">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.345104,-0.236476,0.547598,0.000003,0.806636,-0.591048,-0.000002,0.306072,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                    </Attribute>
+                </Condition>
+            </Condition>
+            <Condition ConditionType="Message" ConditionAlias="Message" ConditionUuid="6d0a3a6fb7d34fdbab5d81171a189ee0">
+                <Attribute>
+                    <EnableStopProgramRunningWhenMessagePopsUp>false</EnableStopProgramRunningWhenMessagePopsUp>
+                    <MessageContent>1</MessageContent>
+                    <MessageType>Information</MessageType>
+                </Attribute>
+            </Condition>
+        </Condition>
+    </Condition>
+</MainProgram>

@@ -1,0 +1,33 @@
+--Main Program
+
+--loop function definition
+  function loopScriptFunc_0()
+    --(Logic tree item : Move) Move
+    init_global_move_profile()
+    set_joint_maxvelc({1.298089,1.298089,1.298089,1.555088,1.555088,1.555088})
+    set_joint_maxacc({8.654390,8.654390,8.654390,10.368128,10.368128,10.368128})
+      --(Logic tree item : Waypoint) Waypoint1
+      set_current_logic_tree_item("c517b42829fc45058859b62b93d0b25d")
+      move_joint({-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008}, true)
+      set_step_breakpoint()
+      --(Logic tree item : Waypoint) Waypoint2
+      set_current_logic_tree_item("484677f0541648fbb783d4b1c0c592e4")
+      move_joint({-0.000003, -0.177800, -1.927800, -0.179204, -1.570796, -0.000008}, true)
+      set_step_breakpoint()
+    --(Logic tree item : Set) Set
+    set_current_logic_tree_item("2e96b6331e484fa3a3970cb596a1bfe8")
+    set_robot_io_status(RobotIOType.RobotBoardUserDO, "U_DO_00", 1)
+    set_step_breakpoint()
+    --(Logic tree item : Set) Set
+    set_current_logic_tree_item("50585078119b416d9fa56d2477400147")
+    set_global_variable("V_D_dx", 1)
+  end
+
+--(Logic tree item : Project_Program) Project_Set
+  --(Logic tree item : Loop) Loop
+  while (true) do
+    sleep(0.001)
+    if (loopScriptFunc_0() == false) then
+      break
+    end
+  end

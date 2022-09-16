@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MainProgram>
+    <Condition ConditionType="Project_Program" ConditionAlias="Project_Script" ConditionUuid="24ed66b198f14f0c8ce3876cb6f3c0cf">
+        <Attribute/>
+        <Condition ConditionType="Script" ConditionAlias="test_04" ConditionUuid="6abf0a4e1e74429688487186d734b7d9">
+            <Attribute>
+                <ScriptConditionMode>BlockScript</ScriptConditionMode>
+                <MD5>98cd1fe696d41ff1cbdbe7f14d8cba2d</MD5>
+                <ScriptFileName>test_04</ScriptFileName>
+            </Attribute>
+        </Condition>
+    </Condition>
+</MainProgram>

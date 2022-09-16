@@ -1,0 +1,29 @@
+--Main Program
+
+--loop function definition
+  function loopScriptFunc_0()
+    --(Logic tree item : Move) Move
+    init_global_move_profile()
+    set_joint_maxvelc({1.298089,1.298089,1.298089,1.555088,1.555088,1.555088})
+    set_joint_maxacc({8.654390,8.654390,8.654390,10.368128,10.368128,10.368128})
+      --(Logic tree item : Waypoint) WaypointA
+      set_current_logic_tree_item("d2d914bf740a45158fe0e70348d42e8f")
+      move_joint({-0.000003, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008}, true)
+      set_step_breakpoint()
+      --(Logic tree item : Waypoint) WaypointB
+      set_current_logic_tree_item("9079e7fa3c7246c48460d9ef59898e68")
+      move_joint({0.306072, -0.127267, -1.321122, 0.376934, -1.570796, -0.000008}, true)
+      set_step_breakpoint()
+    --(Logic tree item : Message) Message
+    set_current_logic_tree_item("6d0a3a6fb7d34fdbab5d81171a189ee0")
+    popup_message(0, "1", false)
+  end
+
+--(Logic tree item : Project_Program) Project_Message
+  --(Logic tree item : Loop) Loop
+  while (true) do
+    sleep(0.001)
+    if (loopScriptFunc_0() == false) then
+      break
+    end
+  end

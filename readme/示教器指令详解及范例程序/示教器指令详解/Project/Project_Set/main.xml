@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MainProgram>
+    <Condition ConditionType="Project_Program" ConditionAlias="Project_Set" ConditionUuid="1bea8d9e65844cf3bb1b71c162c3eacc">
+        <Attribute/>
+        <Condition ConditionType="Loop" ConditionAlias="Loop" ConditionUuid="d770fbafce5746aea3a124a7e1757feb">
+            <Attribute>
+                <LoopConditionMode>Always</LoopConditionMode>
+            </Attribute>
+            <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="a1b6c589802a4bf39dc86bf8b0af2400">
+                <Attribute>
+                    <MoveConditionMode>MoveJoint</MoveConditionMode>
+                    <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                    <ArrivalAheadType>None</ArrivalAheadType>
+                    <EnableArrivalAhead>false</EnableArrivalAhead>
+                    <EnableOffset>false</EnableOffset>
+                    <JointAcc>50,50,50,50,50,50</JointAcc>
+                    <JointSpeed>50,50,50,50,50,50</JointSpeed>
+                    <OffsetCoordName></OffsetCoordName>
+                    <OffsetCoordType>BaseCoord</OffsetCoordType>
+                    <OffsetRX></OffsetRX>
+                    <OffsetRY></OffsetRY>
+                    <OffsetRZ></OffsetRZ>
+                    <OffsetX></OffsetX>
+                    <OffsetY></OffsetY>
+                    <OffsetZ></OffsetZ>
+                </Attribute>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint1" ConditionUuid="c517b42829fc45058859b62b93d0b25d">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.400319,-0.121499,0.547598,0.000003,0.707109,-0.707105,-0.000002,-0.000003,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                    </Attribute>
+                </Condition>
+                <Condition ConditionType="Waypoint" ConditionAlias="Waypoint2" ConditionUuid="484677f0541648fbb783d4b1c0c592e4">
+                    <Attribute>
+                        <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                        <FixedPoint>-0.400318,-0.121499,0.339047,0.000000,0.707109,-0.707105,0.000000,-0.000003,-0.177800,-1.927800,-0.179204,-1.570796,-0.000008</FixedPoint>
+                    </Attribute>
+                </Condition>
+            </Condition>
+            <Condition ConditionType="Set" ConditionAlias="Set" ConditionUuid="2e96b6331e484fa3a3970cb596a1bfe8">
+                <Attribute>
+                    <SetConditionMode>IO</SetConditionMode>
+                    <IOCategory>User</IOCategory>
+                    <IOName>U_DO_00</IOName>
+                    <IOValue>1</IOValue>
+                    <RobotIOType>RobotBoardUserDO</RobotIOType>
+                </Attribute>
+            </Condition>
+            <Condition ConditionType="Set" ConditionAlias="Set" ConditionUuid="50585078119b416d9fa56d2477400147">
+                <Attribute>
+                    <SetConditionMode>Variable</SetConditionMode>
+                    <VarAssignmentExp>1</VarAssignmentExp>
+                    <VarName>V_D_dx</VarName>
+                </Attribute>
+            </Condition>
+        </Condition>
+    </Condition>
+</MainProgram>

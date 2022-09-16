@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProcedureProgram>
+    <Condition ConditionType="Procedure_Program" ConditionAlias="Procedure1" ConditionUuid="84b74a84d1154d7ba8a2d5f4c03e6c3e">
+        <Attribute/>
+        <Condition ConditionType="Move" ConditionAlias="Move" ConditionUuid="7085c624294646b5abf3a93b8b9b8783">
+            <Attribute>
+                <MoveConditionMode>MoveJoint</MoveConditionMode>
+                <ArrivalAheadThreshold>0.000000</ArrivalAheadThreshold>
+                <ArrivalAheadType>None</ArrivalAheadType>
+                <EnableArrivalAhead>false</EnableArrivalAhead>
+                <EnableOffset>false</EnableOffset>
+                <JointAcc>50,50,50,50,50,50</JointAcc>
+                <JointSpeed>50,50,50,50,50,50</JointSpeed>
+                <OffsetCoordName></OffsetCoordName>
+                <OffsetCoordType>BaseCoord</OffsetCoordType>
+                <OffsetRX></OffsetRX>
+                <OffsetRY></OffsetRY>
+                <OffsetRZ></OffsetRZ>
+                <OffsetX></OffsetX>
+                <OffsetY></OffsetY>
+                <OffsetZ></OffsetZ>
+            </Attribute>
+            <Condition ConditionType="Waypoint" ConditionAlias="Waypoint2" ConditionUuid="2095420ec34245028f371a296421c00d">
+                <Attribute>
+                    <WaypointConditionMode>FixedPoint</WaypointConditionMode>
+                    <FixedPoint>-0.400319,-0.121499,0.547598,0.000003,0.707109,-0.707105,-0.000002,-0.000003,-0.127267,-1.321122,0.376934,-1.570796,-0.000008</FixedPoint>
+                </Attribute>
+            </Condition>
+        </Condition>
+    </Condition>
+</ProcedureProgram>
