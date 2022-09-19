@@ -50,6 +50,8 @@ export LD_LIBRARY_PATH=/home/shan/App/log4cplus/linux_x64/lib:$LD_LIBRARY_PATH
 catkin_make
 ```
 
+
+
 ## Usage
 
 - MoveIt + RVIZ
@@ -69,7 +71,18 @@ catkin_make
 - MoveIt + Arm
 
   ```bash
+  # 连接电源线, 按下电源箱开关
+  # 示教器: 电源箱示教器使能开关, 示教器本体开关
+  
   # 网线连接, 手动设置IP 192.168.0.100
   # 如何确认设备IP?
   roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.0.123
+  
+  # 切换 ROS 控制权 
+  # ROS 控制
+  rostopic pub -1 aubo_driver/controller_switch std_msgs/Int32 1
+  # 非 ROS 控制
+  rostopic pub -1 aubo_driver/controller_switch std_msgs/Int32 0
   ```
+
+-   示教器提供拖动示教功能
