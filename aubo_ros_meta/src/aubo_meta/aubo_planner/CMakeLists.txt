@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aubo_planner)
-# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(catkin REQUIRED COMPONENTS aubo_msgs  moveit_core moveit_ros_planning moveit_ros_planning_interface pluginlib cmake_modules)
 
@@ -10,14 +9,14 @@ find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs
   control_msgs trajectory_msgs actionlib_msgs actionlib
   urdf industrial_msgs industrial_utils)
 
-if("$ENV{ROS_DISTRO}" STREQUAL "kinetic")
-    find_package(Eigen3 REQUIRED)
-    Message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<Note: Find Eigen3 Package in aubo_planner for kinetic")
-endif()
-
 if("$ENV{ROS_DISTRO}" STREQUAL "melodic")
     find_package(Eigen3 REQUIRED)
     Message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<Note: Find Eigen3 Package in aubo_planner for melodic")
+endif()
+
+if("$ENV{ROS_DISTRO}" STREQUAL "kinetic")
+    find_package(Eigen3 REQUIRED)
+    Message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<Note: Find Eigen3 Package in aubo_planner for kinetic")
 endif()
 
 if("$ENV{ROS_DISTRO}" STREQUAL "indigo")
@@ -61,12 +60,12 @@ endif()
 
 include_directories(include  ${catkin_INCLUDE_DIRS})
 
-if("$ENV{ROS_DISTRO}" STREQUAL "kinetic")
+if("$ENV{ROS_DISTRO}" STREQUAL "melodic")
     include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS})
     Message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<Note: Find EIGEN3_INCLUDE_DIRS Package in aubo_planner for kinetic")
 endif()
 
-if("$ENV{ROS_DISTRO}" STREQUAL "melodic")
+if("$ENV{ROS_DISTRO}" STREQUAL "kinetic")
     include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS})
     Message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<Note: Find EIGEN3_INCLUDE_DIRS Package in aubo_planner for kinetic")
 endif()
