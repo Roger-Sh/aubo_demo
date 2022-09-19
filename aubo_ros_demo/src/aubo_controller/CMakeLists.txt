@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aubo_controller)
+# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 find_package(catkin REQUIRED COMPONENTS aubo_msgs  moveit_core moveit_ros_planning moveit_ros_planning_interface pluginlib cmake_modules)
 

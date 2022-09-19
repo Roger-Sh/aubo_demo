@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aubo_kinematics)
+# set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS 
