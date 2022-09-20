@@ -61,6 +61,7 @@ catkin_make
   # launch moveit + rviz
   roslaunch aubo_i5_moveit_config moveit_planning_execution.launch robot_ip:=127.0.0.1
   ```
+  
 - MoveIt + RVIZ + Gazebo 仿真
 
   ```bash
@@ -69,6 +70,7 @@ catkin_make
   # launch gazebo
   roslaunch aubo_gazebo aubo_i5_gazebo_control.launch
   ```
+  
 - MoveIt + Arm 实际操作
 
   ```bash
@@ -88,12 +90,29 @@ catkin_make
 
 -   示教器提供拖动示教功能
 
+-   MoveIt + Arm + Demo
+
+    ```bash
+    # 连接电源线, 按下电源箱开关
+    # 示教器: 电源箱示教器使能开关, 示教器本体开关
+    
+    # 网线连接, 手动设置IP 192.168.0.100
+    # 如何确认设备IP?
+    roslaunch aubo_i5_moveit_config moveit_planning_execution.launch sim:=false robot_ip:=192.168.0.123
+    
+    # 启动 aubo_demo 
+    rosrun aubo_demo aubo_i5_demo
+    
+    ```
+
+    
+
 -   读取机械臂末端位姿
 
     ```bash
-    # 方法1: 通过示教器读取
+    # 方法1: 通过示教器读取, Z坐标比TF小0.024, 和机械臂姿态无关
     
-    # 方法2: 通过TF读取, Z坐标比示教器大0.024, 和机械臂姿态无关
+    # 方法2: 通过TF读取, 与路径规划设置的目标结果一致
     rosrun tf tf_echo /base_link /wrist3_Link
     ```
 

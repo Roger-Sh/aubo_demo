@@ -104,6 +104,13 @@ if("$ENV{ROS_DISTRO}" STREQUAL "melodic")
     ## Specify libraries to link a library or executable target against
     target_link_libraries(MoveGroupInterface_To_Melodic ${catkin_LIBRARIES} ${Boost_LIBRARIES})
     Message(STATUS "<<<<<<<<<<<<<<<<<<<<<<<<<Note: build aubo_demo node for Melodic")
+
+
+    add_executable(aubo_i5_demo src/aubo_i5_demo.cpp)
+    target_link_libraries(aubo_i5_demo ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+    
+
+
 endif()
 
 if("$ENV{ROS_DISTRO}" STREQUAL "kinetic")
