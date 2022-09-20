@@ -55,13 +55,13 @@ catkin_make
 
 ## Usage
 
-- MoveIt + RVIZ
+- MoveIt + RVIZ 仿真
 
   ```bash
   # launch moveit + rviz
   roslaunch aubo_i5_moveit_config moveit_planning_execution.launch robot_ip:=127.0.0.1
   ```
-- MoveIt + RVIZ + Gazebo
+- MoveIt + RVIZ + Gazebo 仿真
 
   ```bash
   # launch moveit + rviz
@@ -69,7 +69,7 @@ catkin_make
   # launch gazebo
   roslaunch aubo_gazebo aubo_i5_gazebo_control.launch
   ```
-- MoveIt + Arm
+- MoveIt + Arm 实际操作
 
   ```bash
   # 连接电源线, 按下电源箱开关
@@ -87,3 +87,14 @@ catkin_make
   ```
 
 -   示教器提供拖动示教功能
+
+-   读取机械臂末端位姿
+
+    ```bash
+    # 方法1: 通过示教器读取
+    
+    # 方法2: 通过TF读取, Z坐标比示教器大0.024, 和机械臂姿态无关
+    rosrun tf tf_echo /base_link /wrist3_Link
+    ```
+
+    
