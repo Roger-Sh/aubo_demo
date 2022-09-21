@@ -83,18 +83,19 @@ void demo06_collision_objects(
     // set start state
     visual_tools.prompt("Step 14: Press 'next' to go to obstacle path start pose");
     move_group.setStartState(*move_group.getCurrentState());
-    tf::Quaternion start_pose_q;
-    start_pose_q.setRPY(1.77, -0.59, -1.79); // radian
-    geometry_msgs::Pose start_pose;
-    start_pose.orientation.x = start_pose_q.x();
-    start_pose.orientation.y = start_pose_q.y();
-    start_pose.orientation.z = start_pose_q.z();
-    start_pose.orientation.w = start_pose_q.w();
-    start_pose.position.x = -0.37;
-    start_pose.position.y = 0.6;
-    start_pose.position.z = 0.4;
-    move_group.setPoseTarget(start_pose);
-    move_group.move();
+
+    // set target pose
+    tf::Quaternion target_pose_q;
+    target_pose_q.setRPY(1.77, -0.59, -1.79); // radian
+    geometry_msgs::Pose target_pose;
+    target_pose.orientation.x = target_pose_q.x();
+    target_pose.orientation.y = target_pose_q.y();
+    target_pose.orientation.z = target_pose_q.z();
+    target_pose.orientation.w = target_pose_q.w();
+    target_pose.position.x = -0.37;
+    target_pose.position.y = 0.6;
+    target_pose.position.z = 0.4;
+    move_group.setPoseTarget(target_pose);
 
     // path plan
     visual_tools.prompt("Step 15: Press 'next' to start path_collision_avoid_plan planning");
