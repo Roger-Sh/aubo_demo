@@ -105,8 +105,6 @@ catkin_make
     
     ```
 
-    
-
 -   读取机械臂末端位姿
 
     ```bash
@@ -116,4 +114,12 @@ catkin_make
     rosrun tf tf_echo /base_link /wrist3_Link
     ```
 
-    
+
+-   MoveIt 加入夹爪的配置
+    -   需要加入夹爪URDF的文件
+        -   /aubo_description/urdf/aubo_i5.urdf
+        -   /aubo_description/urdf/aubo_i5.urdf.xacro
+        -   /aubo_gazebo/urdf/aubo_i5.xacro
+    -   moveit_setup_assistant 中的设置
+        -   self-collisions 中加入夹爪的自碰撞检测
+        -   planning_groups 中修改运动链, 加入夹爪的link
