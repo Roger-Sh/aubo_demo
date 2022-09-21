@@ -1,5 +1,6 @@
 controller_list:
   - name: fake_manipulator_i5_controller
+    type: $(arg fake_execution_type)
     joints:
       - shoulder_joint
       - upperArm_joint
@@ -7,3 +8,6 @@ controller_list:
       - wrist1_joint
       - wrist2_joint
       - wrist3_joint
+initial:  # Define initial robot poses.
+  - group: manipulator_i5
+    pose: zero
