@@ -123,3 +123,12 @@ catkin_make
     -   moveit_setup_assistant 中的设置
         -   self-collisions 中加入夹爪的自碰撞检测
         -   planning_groups 中修改运动链, 加入夹爪的link
+
+-   通过文件加入场景碰撞物体
+
+    ```xml
+    <arg name="scene_file" default="$(find project_name)/config/file.scene"/> 
+    <node name = "moveit_publish_scene_from_text" pkg= "moveit_ros_planning" type = "moveit_publish_scene_from_text" args= "$(arg scene_file)"/>
+    ```
+
+    

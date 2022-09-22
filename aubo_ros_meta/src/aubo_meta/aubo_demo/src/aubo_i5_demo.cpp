@@ -12,6 +12,52 @@
 #include <tf/transform_listener.h>
 
 namespace rvt = rviz_visual_tools;
+typedef std::map<std::string, moveit_msgs::CollisionObject> CollisionObjectMap;
+
+
+void demo08_attach_object()
+{
+    // move to pose 1
+
+
+    // attach object 1
+
+    // move to pose 2
+
+    // detach object 1
+}
+
+/**
+ * @brief demo07: clear collision objects in scene
+ * 
+ * @param visual_tools 
+ * @param move_group 
+ * @param planning_scene_interface 
+ */
+void demo07_clear_scene(
+    moveit_visual_tools::MoveItVisualTools &visual_tools,
+    moveit::planning_interface::MoveGroupInterface &move_group,
+    moveit::planning_interface::PlanningSceneInterface &planning_scene_interface)
+{
+    // get collision objects in scene
+    visual_tools.prompt("Press 'next' to start demo07_clear_scene: get objects map");
+    planning_scene_interface.getKnownObjectNames();
+    CollisionObjectMap collision_objects_in_scene = planning_scene_interface.getObjects();
+    std::vector<moveit_msgs::CollisionObject> collision_objects_delete;
+    for (CollisionObjectMap::iterator it = collision_objects_in_scene.begin() ; it != collision_objects_in_scene.end(); it++)
+    {
+        ROS_INFO_STREAM(it->first);
+
+        it->second.operation = it->second.REMOVE;
+        collision_objects_delete.push_back(it->second);
+    }
+
+    // delete objects
+    visual_tools.prompt("Press 'next' to apply remove objects operation");
+    planning_scene_interface.applyCollisionObjects(collision_objects_delete);  // synchronously
+
+}
+
 
 /**
  * @brief demo: add obstacle and plan path to avoid obstacle
@@ -29,7 +75,12 @@ void demo06_collision_objects(
     const robot_state::JointModelGroup *joint_model_group,
     Eigen::Isometry3d &text_pose)
 {
-    visual_tools.prompt("Step 13: Press 'next' to start demo: collision objects");
+    visual_tools.prompt("Press 'next' to start demo06_collision_objects");
+
+    /**
+     * @brief add collision objects
+     * 
+     */
 
     // define collision_object1
     moveit_msgs::CollisionObject collision_object1;
@@ -73,48 +124,96 @@ void demo06_collision_objects(
     std::vector<moveit_msgs::CollisionObject> collision_objects;
     collision_objects.push_back(collision_object1);
     collision_objects.push_back(collision_object2);
-    planning_scene_interface.addCollisionObjects(collision_objects);
+    // planning_scene_interface.addCollisionObjects(collision_objects);    // asynchronously
+    planning_scene_interface.applyCollisionObjects(collision_objects);  // synchronously
 
     // Show text in RViz of status
     visual_tools.deleteAllMarkers();
-    visual_tools.publishText(text_pose, "AUBO Add object Example5", rvt::RED, rvt::XLARGE);
+    visual_tools.publishText(text_pose, "demo06_collision_objects: add collision objects", rvt::WHITE, rvt::XLARGE);
     visual_tools.trigger();
 
+    /**
+     * @brief target pose 1 path plan with obstacle
+     * 
+     */
+
     // set start state
-    visual_tools.prompt("Step 14: Press 'next' to go to obstacle path start pose");
+    visual_tools.prompt("Press 'next' to start target_pose_1 obstacle path planning");
     move_group.setStartState(*move_group.getCurrentState());
 
     // set target pose
-    tf::Quaternion target_pose_q;
-    target_pose_q.setRPY(1.77, -0.59, -1.79); // radian
-    geometry_msgs::Pose target_pose;
-    target_pose.orientation.x = target_pose_q.x();
-    target_pose.orientation.y = target_pose_q.y();
-    target_pose.orientation.z = target_pose_q.z();
-    target_pose.orientation.w = target_pose_q.w();
-    target_pose.position.x = -0.37;
-    target_pose.position.y = 0.6;
-    target_pose.position.z = 0.4;
-    move_group.setPoseTarget(target_pose);
+    tf::Quaternion target_pose_1_q;
+    target_pose_1_q.setRPY(3.140, 0.000, -1.569); // radian
+    geometry_msgs::Pose target_pose_1;
+    target_pose_1.orientation.x = target_pose_1_q.x();
+    target_pose_1.orientation.y = target_pose_1_q.y();
+    target_pose_1.orientation.z = target_pose_1_q.z();
+    target_pose_1.orientation.w = target_pose_1_q.w();
+    target_pose_1.position.x = -0.297;
+    target_pose_1.position.y = 0.431;
+    target_pose_1.position.z = -0.018;
+    move_group.setPoseTarget(target_pose_1);
 
     // path plan
-    visual_tools.prompt("Step 15: Press 'next' to start path_collision_avoid_plan planning");
-    moveit::planning_interface::MoveGroupInterface::Plan path_collision_avoid_plan;
-    bool success = (move_group.plan(path_collision_avoid_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-    ROS_INFO_NAMED("tutorial", "Visualizing path_collision_avoid_plan %s", success ? "" : "FAILED");
+    moveit::planning_interface::MoveGroupInterface::Plan path_collision_avoid_plan_1;
+    bool success_1 = (move_group.plan(path_collision_avoid_plan_1) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing path_collision_avoid_plan_1 %s", success_1 ? "" : "FAILED");
 
     // Visualize the plan in RViz
     visual_tools.deleteAllMarkers();
-    visual_tools.publishText(text_pose, "AUBO Obstacle Goal Exalmple6", rvt::RED, rvt::XLARGE);
-    visual_tools.publishTrajectoryLine(path_collision_avoid_plan.trajectory_, joint_model_group);
+    visual_tools.publishText(text_pose, "demo06_collision_objects: execute path_collision_avoid_plan_1", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(path_collision_avoid_plan_1.trajectory_, joint_model_group);
     visual_tools.trigger();
 
     // Perform planning actions
-    visual_tools.prompt("Step 16: Press 'next' to execute path_collision_avoid_plan");
-    move_group.execute(path_collision_avoid_plan);
+    visual_tools.prompt("Press 'next' to execute path_collision_avoid_plan_1");
+    move_group.execute(path_collision_avoid_plan_1);
+
+    /**
+     * @brief target pose 2 path plan with obstacle
+     * 
+     */
+
+    // set start state
+    visual_tools.prompt("Press 'next' to start target_pose_2 obstacle path planning");
+    move_group.setStartState(*move_group.getCurrentState());
+
+    // set target pose
+    tf::Quaternion target_pose_2_q;
+    target_pose_2_q.setRPY(0.929, -1.104, 3.036);       // radian
+    geometry_msgs::Pose target_pose_2;
+    target_pose_2.orientation.x = target_pose_2_q.x();
+    target_pose_2.orientation.y = target_pose_2_q.y();
+    target_pose_2.orientation.z = target_pose_2_q.z();
+    target_pose_2.orientation.w = target_pose_2_q.w();
+    target_pose_2.position.x = -0.361;
+    target_pose_2.position.y = 0.135;
+    target_pose_2.position.z = 0.166;
+    move_group.setPoseTarget(target_pose_2);
+
+    // path plan
+    visual_tools.prompt("Press 'next' to start path_collision_avoid_plan_2 planning");
+    moveit::planning_interface::MoveGroupInterface::Plan path_collision_avoid_plan_2;
+    bool success_2 = (move_group.plan(path_collision_avoid_plan_2) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing path_collision_avoid_plan_2 %s", success_2 ? "" : "FAILED");
+
+    // Visualize the plan in RViz
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishText(text_pose, "demo06_collision_objects: execute path_collision_avoid_plan_2", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(path_collision_avoid_plan_2.trajectory_, joint_model_group);
+    visual_tools.trigger();
+
+    // Perform planning actions
+    visual_tools.prompt("Press 'next' to execute path_collision_avoid_plan_2");
+    move_group.execute(path_collision_avoid_plan_2);
+
+    /**
+     * @brief go home
+     * 
+     */
 
     // Move to the home point position
-    visual_tools.prompt("Step 17: Press 'next' to go home");
+    visual_tools.prompt("Press 'next' to go home");
     std::vector<double> home_pose;
     home_pose.push_back(-0.001255);
     home_pose.push_back(-0.148822);
@@ -140,7 +239,7 @@ void demo05_cartesian_interpolation(
     const robot_state::JointModelGroup *joint_model_group,
     Eigen::Isometry3d &text_pose)
 {
-    visual_tools.prompt("Step 11: Press 'next' to start demo: cartesian interpolation");
+    visual_tools.prompt("Press 'next' to start demo05_cartesian_interpolation");
 
     //  waypoints
     std::vector<geometry_msgs::Pose> waypoints;
@@ -163,8 +262,8 @@ void demo05_cartesian_interpolation(
     way_pose_2.position.y -= 0.15;
     waypoints.push_back(way_pose_2);
     // up and left
-    way_pose_2.position.z += 0.2;
-    way_pose_2.position.y += 0.2;
+    way_pose_2.position.z -= 0.2;
+    way_pose_2.position.y += 0.1;
     way_pose_2.position.x -= 0.2;
     waypoints.push_back(way_pose_2);
 
@@ -182,8 +281,8 @@ void demo05_cartesian_interpolation(
 
     // Visualize the plan in RViz
     visual_tools.deleteAllMarkers();
-    visual_tools.publishText(text_pose, "AUBO Joint Space Goal Example4", rvt::RED, rvt::XLARGE);
-    visual_tools.publishPath(waypoints, rvt::LIME_GREEN, rvt::SMALL);
+    visual_tools.publishText(text_pose, "demo05_cartesian_interpolation", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishPath(waypoints, rvt::LIME_GREEN, rvt::XLARGE);
     for (std::size_t i = 0; i < waypoints.size(); ++i)
     {
         visual_tools.publishAxisLabeled(waypoints[i], "pt" + std::to_string(i), rvt::SMALL);
@@ -191,13 +290,13 @@ void demo05_cartesian_interpolation(
     visual_tools.trigger();
 
     // execute path_interpolation_plan
-    visual_tools.prompt("Step 12: Press 'next' to execute path_interpolation_plan");
+    visual_tools.prompt("Press 'next' to execute path_interpolation_plan");
     moveit::planning_interface::MoveGroupInterface::Plan path_interpolation_plan;
     path_interpolation_plan.trajectory_ = trajectory;
     move_group.execute(path_interpolation_plan);
 
     // go home
-    visual_tools.prompt("Step 13: Press 'next' to go home");
+    visual_tools.prompt("Press 'next' to go home");
     std::vector<double> home_pose;
     home_pose.push_back(-0.001255);
     home_pose.push_back(-0.148822);
@@ -223,7 +322,7 @@ void demo04_cartesian_path_planning_with_constraints(
     const robot_state::JointModelGroup *joint_model_group,
     Eigen::Isometry3d &text_pose)
 {
-    visual_tools.prompt("Step 7: Press 'next' to start cartesian path planning with path constraints");
+    visual_tools.prompt("Press 'next' to start demo04_cartesian_path_planning_with_constraints");
 
     // set path constraint
     moveit_msgs::OrientationConstraint oc;
@@ -256,7 +355,7 @@ void demo04_cartesian_path_planning_with_constraints(
     path_start_pose.orientation.w = oc_q.w();
 
     // move to path start pose
-    visual_tools.prompt("Step 8: Press 'next' to move to path start pose");
+    visual_tools.prompt("Press 'next' to move to path start pose");
     move_group.setPoseTarget(path_start_pose);
     move_group.move();
 
@@ -266,11 +365,11 @@ void demo04_cartesian_path_planning_with_constraints(
     move_group.setStartStateToCurrentState();
 
     // set path_end_pose
-    visual_tools.prompt("Step 9: Press 'next' to plan path with constraints");
+    visual_tools.prompt("Press 'next' to plan path with constraints");
     geometry_msgs::Pose path_end_pose;
-    path_end_pose.position.x = 0.4;
+    path_end_pose.position.x = -0.5;
     path_end_pose.position.y = 0.4;
-    path_end_pose.position.z = 0.4;
+    path_end_pose.position.z = 0.2;
     path_end_pose.orientation.x = oc_q.x();
     path_end_pose.orientation.y = oc_q.y();
     path_end_pose.orientation.z = oc_q.z();
@@ -287,15 +386,15 @@ void demo04_cartesian_path_planning_with_constraints(
     visual_tools.deleteAllMarkers();
     visual_tools.publishAxisLabeled(path_start_pose, "path_start_pose");
     visual_tools.publishAxisLabeled(path_end_pose, "path_end_pose");
-    visual_tools.publishText(text_pose, "AUBO Constrained Goal Example3", rvt::RED, rvt::XLARGE);
+    visual_tools.publishText(text_pose, "demo04_cartesian_path_planning_with_constraints", rvt::WHITE, rvt::XLARGE);
     visual_tools.publishTrajectoryLine(path_constraints_plan.trajectory_, joint_model_group);
     visual_tools.trigger();
 
     // Perform planning actions
-    visual_tools.prompt("Step 10: Press 'next' to execute path_constraints_plan");
+    visual_tools.prompt("Press 'next' to execute path_constraints_plan");
     move_group.execute(path_constraints_plan);
 
-    // clear path constraints
+    // clear path constraints !!!
     move_group.clearPathConstraints();
 }
 
@@ -313,11 +412,10 @@ void demo03_joint_angle_move(
     const robot_state::JointModelGroup *joint_model_group,
     Eigen::Isometry3d &text_pose)
 {
-    visual_tools.prompt("Step 5: Press 'next' to execute joint space move plan demo");
+    visual_tools.prompt("Press 'next' to start demo03_joint_angle_move");
 
-    // get joint values using copyJointGroupPositions()
+    // get joint values using current_state->copyJointGroupPositions()
     std::vector<double> joint_group_positions;
-    // get current robot state
     moveit::core::RobotStatePtr current_state = move_group.getCurrentState();
     current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
     ROS_INFO_STREAM("joint_group_positions");
@@ -325,7 +423,8 @@ void demo03_joint_angle_move(
     {
         ROS_INFO_STREAM(joint_group_positions[i]);
     }
-    // same as current_joint_values
+
+    // get joint values using getCurrentJointValues()
     ROS_INFO_STREAM("current_joint_values");
     std::vector<double> current_joint_values = move_group.getCurrentJointValues();
     for (size_t i = 0; i < current_joint_values.size(); i++)
@@ -346,16 +445,16 @@ void demo03_joint_angle_move(
 
     // Visual display in RVIZ
     visual_tools.deleteAllMarkers();
-    visual_tools.publishText(text_pose, "AUBO Joint Space Goal Example2", rvt::RED, rvt::XLARGE);
+    visual_tools.publishText(text_pose, "demo03_joint_angle_move", rvt::WHITE, rvt::XLARGE);
     visual_tools.publishTrajectoryLine(target_pose_2_plan.trajectory_, joint_model_group);
     visual_tools.trigger();
 
     // Perform planning actions
-    visual_tools.prompt("Step 6: Press 'next' to execute target_pose_2_plan");
+    visual_tools.prompt("Press 'next' to execute target_pose_2_plan");
     move_group.execute(target_pose_2_plan);
 
     // go home
-    visual_tools.prompt("Step 6: Press 'next' to go to home position");
+    visual_tools.prompt("Press 'next' to go to home position");
     std::vector<double> home_pose;
     home_pose.push_back(-0.001255);
     home_pose.push_back(-0.148822);
@@ -377,7 +476,7 @@ void demo02_get_robot_state(
     moveit_visual_tools::MoveItVisualTools &visual_tools,
     moveit::planning_interface::MoveGroupInterface &move_group)
 {
-    visual_tools.prompt("Step 4: Press 'next' to get current robot state");
+    visual_tools.prompt("Press 'next' to start demo02_get_robot_state");
 
     // get current robot state
     moveit::core::RobotStatePtr current_state = move_group.getCurrentState();
@@ -443,7 +542,7 @@ void demo01_joint_cartesian_move(
     const robot_state::JointModelGroup *joint_model_group)
 {
     // go to home_pose
-    visual_tools.prompt("Step 1: Press 'next' to go to home position");
+    visual_tools.prompt("Press 'next' to start demo01_joint_cartesian_move");
     std::vector<double> home_pose;
     home_pose.push_back(-0.001255);
     home_pose.push_back(-0.148822);
@@ -455,7 +554,7 @@ void demo01_joint_cartesian_move(
     move_group.move();
 
     // Set target_pose_1
-    visual_tools.prompt("Step 2: Press 'next' to excute target_pose_1_plan");
+    visual_tools.prompt("Press 'next' to excute target_pose_1_plan");
     tf::Quaternion target_pose_1_q;
     target_pose_1_q.setRPY(3.14, 0, -1.57); // radian
     geometry_msgs::Pose target_pose_1;
@@ -475,9 +574,10 @@ void demo01_joint_cartesian_move(
     ROS_INFO_NAMED("tutorial", "Visualizing target_pose_1_plan (cartesian space goal) %s", success ? "Success" : "FAILED");
 
     // visual planning path in Rviz
+    visual_tools.prompt("Press 'next' to show visual_tools markers");
     visual_tools.deleteAllMarkers();
-    visual_tools.publishAxisLabeled(target_pose_1, "pose1");
-    visual_tools.publishText(text_pose, "AUBO Pose Goal Example1", rvt::RED, rvt::XLARGE);
+    visual_tools.publishAxisLabeled(target_pose_1, "target_pose_1", rvt::XLARGE);
+    visual_tools.publishText(text_pose, "demo01_joint_cartesian_move", rvt::WHITE, rvt::XLARGE);
     // Parameter 1 (trajectory_): path information
     // Parameter 2 (JointModelGroup): Joint angle information and arm model information of the initial pose
     visual_tools.publishTrajectoryLine(target_pose_1_plan.trajectory_, joint_model_group);
@@ -487,7 +587,7 @@ void demo01_joint_cartesian_move(
     move_group.execute(target_pose_1_plan);
 
     // go to home_pose
-    visual_tools.prompt("Step 3: Press 'next' to go to home position");
+    visual_tools.prompt("Press 'next' to go to home position");
     move_group.setJointValueTarget(home_pose);
     move_group.move();
 }
@@ -528,7 +628,7 @@ int main(int argc, char **argv)
     // create text
     Eigen::Isometry3d text_pose = Eigen::Isometry3d::Identity();
     text_pose.translation().z() = 1.2;
-    visual_tools.publishText(text_pose, "AUBO Demo", rvt::RED, rvt::XLARGE);
+    visual_tools.publishText(text_pose, "AUBO Demo", rvt::WHITE, rvt::XLARGE);
     // Text visualization takes effect
     visual_tools.trigger();
 
@@ -537,6 +637,8 @@ int main(int argc, char **argv)
 
     // Get the end of the basic information
     ROS_INFO_NAMED("tutorial", "End effector link: %s", move_group.getEndEffectorLink().c_str());
+
+    demo07_clear_scene(visual_tools, move_group, planning_scene_interface);
 
     /**
      * @brief Demo: joint move, cartesian move

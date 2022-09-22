@@ -1,14 +1,11 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 70
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /MotionPlanning1/Scene Robot1/Links1
-        - /MotionPlanning1/Scene Robot1/Links1/base_link1
-        - /TF1
+      Expanded: ~
       Splitter Ratio: 0.7425600290298462
-    Tree Height: 346
+    Tree Height: 373
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -134,9 +131,9 @@ Visualization Manager:
         Robot Color: 150; 50; 150
         Show Robot Collision: false
         Show Robot Visual: true
-        Show Trail: true
+        Show Trail: false
         State Display Time: 0.05 s
-        Trail Step Size: 5
+        Trail Step Size: 15
         Trajectory Topic: move_group/display_planned_path
       Planning Metrics:
         Payload: 1
@@ -147,7 +144,7 @@ Visualization Manager:
         TextHeight: 0.07999999821186066
       Planning Request:
         Colliding Link Color: 255; 0; 0
-        Goal State Alpha: 1
+        Goal State Alpha: 0.5
         Goal State Color: 250; 128; 0
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
@@ -168,65 +165,76 @@ Visualization Manager:
         Voxel Rendering: Occupied Voxels
       Scene Robot:
         Attached Body Color: 150; 50; 150
-        Links:
+        Link Tree:
           All Links Enabled: true
           Expand Joint Details: false
           Expand Link Details: false
           Expand Tree: false
-          Link Tree Style: Links in Alphabetic Order
-          base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          foreArm_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          gripper_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          gripper_tip_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          pedestal_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          shoulder_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          upperArm_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
+          Link Tree Style: Tree of links
           world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          wrist1_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          wrist2_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          wrist3_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
+            Details:
+              Alpha: 1
+              Show Axes: false
+              Show Trail: false
+            pedestal_Link:
+              Details:
+                Alpha: 1
+                Show Axes: false
+                Show Trail: false
+              Value: true
+              base_link:
+                Details:
+                  Alpha: 1
+                  Show Axes: false
+                  Show Trail: false
+                Value: true
+                shoulder_Link:
+                  Details:
+                    Alpha: 1
+                    Show Axes: false
+                    Show Trail: false
+                  Value: true
+                  upperArm_Link:
+                    Details:
+                      Alpha: 1
+                      Show Axes: false
+                      Show Trail: false
+                    Value: true
+                    foreArm_Link:
+                      Details:
+                        Alpha: 1
+                        Show Axes: false
+                        Show Trail: false
+                      Value: true
+                      wrist1_Link:
+                        Details:
+                          Alpha: 1
+                          Show Axes: false
+                          Show Trail: false
+                        Value: true
+                        wrist2_Link:
+                          Details:
+                            Alpha: 1
+                            Show Axes: false
+                            Show Trail: false
+                          Value: true
+                          wrist3_Link:
+                            Details:
+                              Alpha: 1
+                              Show Axes: false
+                              Show Trail: false
+                            Value: true
+                            gripper_Link:
+                              Details:
+                                Alpha: 1
+                                Show Axes: false
+                                Show Trail: false
+                              Value: true
+                              gripper_tip_Link:
+                                Details:
+                                  Alpha: 1
+                                  Show Axes: false
+                                  Show Trail: false
         Robot Alpha: 1
         Show Robot Collision: false
         Show Robot Visual: true
@@ -259,11 +267,11 @@ Visualization Manager:
           Value: false
         wrist3_Link:
           Value: true
-      Marker Scale: 1.5
+      Marker Scale: 0.5
       Name: TF
       Show Arrows: true
       Show Axes: true
-      Show Names: true
+      Show Names: false
       Tree:
         world:
           pedestal_Link:
@@ -278,6 +286,14 @@ Visualization Manager:
                             gripper_tip_Link:
                               {}
       Update Interval: 0
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /rviz_visual_tools
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
@@ -295,25 +311,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.3991661071777344
+      Distance: 3.5107688903808594
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.25800973176956177
-        Y: 0.150926411151886
-        Z: -3.3527608138683718e-6
+        X: 0.20780444145202637
+        Y: -0.23129922151565552
+        Z: -3.471970103419153e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.26979851722717285
+      Pitch: 0.39479774236679077
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 4.709920406341553
+      Yaw: 4.019932270050049
     Saved: ~
 Window Geometry:
   Displays:
@@ -327,7 +343,7 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002ad000003a7fc0200000008fb000000100044006900730070006c006100790073010000003d000001dd000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000002200000017d0000017d00fffffffb00000024005200760069007a00560069007300750061006c0054006f006f006c007300470075006901000003a3000000410000004100ffffff0000048a000003a700000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000001f3000003cefc0200000009fb000000100044006900730070006c0061007900730100000016000001b2000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c006900640065007201000001ce000000410000004100fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000215000001880000017d00fffffffb00000024005200760069007a00560069007300750061006c0054006f006f006c007300470075006901000003a3000000410000004100fffffffb00000024005200760069007a00560069007300750061006c0054006f006f006c007300470075006900000003a300000041000000000000000000000544000003ce00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   RvizVisualToolsGui:
     collapsed: false
   Views:
