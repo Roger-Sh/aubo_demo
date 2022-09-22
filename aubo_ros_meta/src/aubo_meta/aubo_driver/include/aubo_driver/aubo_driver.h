@@ -65,7 +65,7 @@
 #include "otg/otgnewslib.h"
 
 #define MINIMUM_BUFFER_SIZE 300
-#define ARM_DOF 8               //support at most 8 axes
+#define ARM_DOF 8 // support at most 8 axes
 #define MAXALLOWEDDELAY 50
 #define server_port 8899
 #define BIG_MODULE_RATIO 2 * M_PI / 60.0 / 121
@@ -82,20 +82,23 @@ namespace aubo_driver
 {
     struct PlanningState
     {
-        double joint_vel_[ARM_DOF];
-        double joint_acc_[ARM_DOF];
-        double joint_pos_[ARM_DOF];
+        double joint_vel_[ARM_DOF]; // joint velocity
+        double joint_acc_[ARM_DOF]; // joint acceleration
+        double joint_pos_[ARM_DOF]; // joint position
     };
+
     enum ROBOT_CONTROLLER_MODE
     {
-        ROBOT_CONTROLLER=0, //
+        ROBOT_CONTROLLER = 0, //
         ROS_CONTROLLER
     };
+    
     enum ControlOption
     {
         AuboAPI = 0,
         RosMoveIt
     };
+    
     enum ControMode
     {
         Teach = 0,
@@ -117,99 +120,99 @@ namespace aubo_driver
 
     class AuboDriver
     {
-        public:
-            AuboDriver(int num);
-            ~AuboDriver();
-            bool roadPointCompare(double *point1, double *point2);
+    public:
+        AuboDriver(int num);
+        ~AuboDriver();
+        bool roadPointCompare(double *point1, double *point2);
 
-            double* getCurrentPosition();
-            void setCurrentPosition(double *target);
-            double* getTagrtPosition();
-            void setTagrtPosition(double *target);
+        double *getCurrentPosition();
+        void setCurrentPosition(double *target);
+        double *getTagrtPosition();
+        void setTagrtPosition(double *target);
 
-            void updateControlStatus();
-            void run();
-            bool connectToRobotController();
-            bool setIO(aubo_msgs::SetIORequest& req, aubo_msgs::SetIOResponse& resp);
-            bool getFK(aubo_msgs::GetFKRequest& req, aubo_msgs::GetFKResponse& resp);
-            bool getIK(aubo_msgs::GetIKRequest& req, aubo_msgs::GetIKResponse& resp);
+        void updateControlStatus();
+        void run();
+        bool connectToRobotController();
+        bool setIO(aubo_msgs::SetIORequest &req, aubo_msgs::SetIOResponse &resp);
+        bool getFK(aubo_msgs::GetFKRequest &req, aubo_msgs::GetFKResponse &resp);
+        bool getIK(aubo_msgs::GetIKRequest &req, aubo_msgs::GetIKResponse &resp);
 
-            const int UPDATE_RATE_ = 500;
-            const int TIMER_SPAN_ = 50;
-            const double THRESHHOLD = 0.000001;
+        const int UPDATE_RATE_ = 500;
+        const int TIMER_SPAN_ = 50;
+        const double THRESHHOLD = 0.000001;
 
-        public:
-            static std::string joint_name_[ARM_DOF];
-            double joint_ratio_[ARM_DOF];
-            int axis_number_;
-            int buffer_size_;
-            ServiceInterface robot_send_service_;      //send
-            ServiceInterface robot_receive_service_;     //receive
+    public:
+        static std::string joint_name_[ARM_DOF];
+        double joint_ratio_[ARM_DOF];
+        int axis_number_;
+        int buffer_size_;
+        ServiceInterface robot_send_service_;    // send
+        ServiceInterface robot_receive_service_; // receive
 
-            RobotState rs;
-//            std::thread* mb_publish_thread_;
+        RobotState rs;
+        // std::thread *mb_publish_thread_;
 
-            std::queue<PlanningState>  buf_queue_;
-            aubo_msgs::JointPos cur_pos;
-            ros::Publisher joint_states_pub_;
-            ros::Publisher joint_feedback_pub_;
-            ros::Publisher joint_target_pub_;
-            ros::Publisher robot_status_pub_;
-            ros::Subscriber teach_subs_;
-            ros::Subscriber moveAPI_subs_;
-            ros::Subscriber moveit_controller_subs_;
-            ros::Subscriber trajectory_execution_subs_;
-            ros::Subscriber robot_control_subs_;
-            ros::Publisher io_pub_;
+        std::queue<PlanningState> buf_queue_;
+        aubo_msgs::JointPos cur_pos;
+        ros::Publisher joint_states_pub_;
+        ros::Publisher joint_feedback_pub_;
+        ros::Publisher joint_target_pub_;
+        ros::Publisher robot_status_pub_;
+        ros::Subscriber teach_subs_;
+        ros::Subscriber moveAPI_subs_;
+        ros::Subscriber moveit_controller_subs_;
+        ros::Subscriber trajectory_execution_subs_;
+        ros::Subscriber robot_control_subs_;
+        ros::Publisher io_pub_;
 
-        private:
-            void moveItPosCallback(const trajectory_msgs::JointTrajectoryPoint::ConstPtr &msg);
-            void trajectoryExecutionCallback(const std_msgs::String::ConstPtr &msg);
-            void robotControlCallback(const std_msgs::String::ConstPtr &msg);
-            void AuboAPICallback(const std_msgs::Float32MultiArray::ConstPtr &msg);
-            void teachCallback(const std_msgs::Float32MultiArray::ConstPtr &msg);
-            void timerCallback(const ros::TimerEvent& e);
-            bool setRobotJointsByMoveIt();
-            void controllerSwitchCallback(const std_msgs::Int32::ConstPtr &msg);
-            void publishIOMsg();
+    private:
+        void moveItPosCallback(const trajectory_msgs::JointTrajectoryPoint::ConstPtr &msg);
+        void trajectoryExecutionCallback(const std_msgs::String::ConstPtr &msg);
+        void robotControlCallback(const std_msgs::String::ConstPtr &msg);
+        void AuboAPICallback(const std_msgs::Float32MultiArray::ConstPtr &msg);
+        void teachCallback(const std_msgs::Float32MultiArray::ConstPtr &msg);
+        void timerCallback(const ros::TimerEvent &e);
+        bool setRobotJointsByMoveIt();
+        void controllerSwitchCallback(const std_msgs::Int32::ConstPtr &msg);
+        void publishIOMsg();
 
-            bool reverse_connected_;
-            double last_recieve_point_[ARM_DOF];   /** To avoid joining the same waypoint to the queue **/
-            int control_option_;
-            bool emergency_stopped_;
-            bool protective_stopped_;
-            bool normal_stopped_;
-            bool data_recieved_;
-            int data_count_;
-            bool real_robot_exist_;
-            bool controller_connected_flag_;
-            bool start_move_;
-            double current_joints_[ARM_DOF];
-            double target_point_[ARM_DOF];
-            JointTrajectoryInput jti;
-            JointTrajectoryOutput jto;
+        bool reverse_connected_;
+        double last_recieve_point_[ARM_DOF]; /** To avoid joining the same waypoint to the queue **/
+        int control_option_;
+        bool emergency_stopped_;
+        bool protective_stopped_;
+        bool normal_stopped_;
+        bool data_recieved_;
+        int data_count_;
+        bool real_robot_exist_;
+        bool controller_connected_flag_;
+        bool start_move_;
+        double current_joints_[ARM_DOF];
+        double target_point_[ARM_DOF];
+        JointTrajectoryInput jti;
+        JointTrajectoryOutput jto;
 
-            ros::NodeHandle nh_;
-            ros::Publisher  rib_pub_;
-            ros::Publisher  cancle_trajectory_pub_;
-            ros::Subscriber controller_switch_sub_;
-            ros::Timer timer_;
-            ros::Timer io_publish_timer;
+        ros::NodeHandle nh_;
+        ros::Publisher rib_pub_;
+        ros::Publisher cancle_trajectory_pub_;
+        ros::Subscriber controller_switch_sub_;
+        ros::Timer timer_;
+        ros::Timer io_publish_timer;
 
-            ros::ServiceServer io_srv_;
-            ros::ServiceServer ik_srv_;
-            ros::ServiceServer fk_srv_;
-            std::thread* mb_publish_thread_;
+        ros::ServiceServer io_srv_;
+        ros::ServiceServer ik_srv_;
+        ros::ServiceServer fk_srv_;
+        std::thread *mb_publish_thread_;
 
-            double io_flag_delay_;
-            std::string server_host_;
-            int rib_buffer_size_;
-            int control_mode_;
-            int collision_class_;
-            std_msgs::Int32MultiArray rib_status_;
-            industrial_msgs::RobotStatus robot_status_;
+        double io_flag_delay_;
+        std::string server_host_;
+        int rib_buffer_size_;
+        int control_mode_;
+        int collision_class_;
+        std_msgs::Int32MultiArray rib_status_;
+        industrial_msgs::RobotStatus robot_status_;
 
-            int delay_clear_times;
+        int delay_clear_times;
     };
 }
 

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- aubo_driver -->
+    <arg name="robot_ip" default="192.168.0.123"/>
+    <node name="aubo_driver" pkg="aubo_driver" type="aubo_driver">
+        <param name="/server_host" type="str" value="$(arg robot_ip)" />
+    </node>
+
+</launch>

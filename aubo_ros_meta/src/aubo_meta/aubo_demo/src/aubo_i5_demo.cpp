@@ -14,17 +14,153 @@
 namespace rvt = rviz_visual_tools;
 typedef std::map<std::string, moveit_msgs::CollisionObject> CollisionObjectMap;
 
-
-void demo08_attach_object()
+/**
+ * @brief go home
+ * 
+ * @param visual_tools 
+ * @param move_group 
+ */
+void go_home(    
+    moveit_visual_tools::MoveItVisualTools &visual_tools,
+    moveit::planning_interface::MoveGroupInterface &move_group)
 {
+    // Move to the home point position
+    visual_tools.prompt("Press 'next' to go home");
+    std::vector<double> home_pose;
+    home_pose.push_back(-0.001255);
+    home_pose.push_back(-0.148822);
+    home_pose.push_back(-1.406503);
+    home_pose.push_back(0.311441);
+    home_pose.push_back(-1.571295);
+    home_pose.push_back(-0.002450);
+    move_group.setJointValueTarget(home_pose);
+    move_group.move();
+}
+
+/**
+ * @brief move to target pose
+ * 
+ * @param ROT_R 
+ * @param ROT_P 
+ * @param ROT_Y 
+ * @param POS_X 
+ * @param POS_Y 
+ * @param POS_Z 
+ * @param visual_tools 
+ * @param move_group 
+ * @param planning_scene_interface 
+ * @param joint_model_group 
+ * @param text_pose 
+ */
+void move_to_target_pose(
+    const double ROT_R,
+    const double ROT_P,
+    const double ROT_Y,
+    const double POS_X,
+    const double POS_Y,
+    const double POS_Z,
+    moveit_visual_tools::MoveItVisualTools &visual_tools,
+    moveit::planning_interface::MoveGroupInterface &move_group,
+    moveit::planning_interface::PlanningSceneInterface &planning_scene_interface,
+    const robot_state::JointModelGroup *joint_model_group,
+    Eigen::Isometry3d &text_pose)
+{
+    // set current state as start state
+    visual_tools.prompt("Press 'next' to start target pose planning");
+    // move_group.setStartState(*move_group.getCurrentState()); // method 1
+    move_group.setStartStateToCurrentState();   // method 2
+
+    // set target pose
+    tf::Quaternion target_pose_q;
+    target_pose_q.setRPY(ROT_R, ROT_P, ROT_Y); // radian
+    geometry_msgs::Pose target_pose;
+    target_pose.orientation.x = target_pose_q.x();
+    target_pose.orientation.y = target_pose_q.y();
+    target_pose.orientation.z = target_pose_q.z();
+    target_pose.orientation.w = target_pose_q.w();
+    target_pose.position.x = POS_X;
+    target_pose.position.y = POS_Y;
+    target_pose.position.z = POS_Z;
+    move_group.setPoseTarget(target_pose);
+
+    // path plan
+    moveit::planning_interface::MoveGroupInterface::Plan path_collision_avoid_plan;
+    bool success = (move_group.plan(path_collision_avoid_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED("tutorial", "Visualizing path_collision_avoid_plan_1 %s", success ? "" : "FAILED");
+
+    // Visualize the plan in RViz
+    visual_tools.deleteAllMarkers();
+    visual_tools.publishText(text_pose, "move to target pose", rvt::WHITE, rvt::XLARGE);
+    visual_tools.publishTrajectoryLine(path_collision_avoid_plan.trajectory_, joint_model_group);
+    visual_tools.trigger();
+
+    // Perform planning actions
+    visual_tools.prompt("Press 'next' to execute path_collision_avoid_plan");
+    move_group.execute(path_collision_avoid_plan);
+}
+
+/**
+ * @brief demo08 attach object
+ * 
+ * @param visual_tools 
+ * @param move_group 
+ * @param planning_scene_interface 
+ * @param joint_model_group 
+ * @param text_pose 
+ */
+void demo08_attach_object(    
+    moveit_visual_tools::MoveItVisualTools &visual_tools,
+    moveit::planning_interface::MoveGroupInterface &move_group,
+    moveit::planning_interface::PlanningSceneInterface &planning_scene_interface,
+    const robot_state::JointModelGroup *joint_model_group,
+    Eigen::Isometry3d &text_pose)
+{
+    visual_tools.prompt("Press 'next' to start demo08_attach_object");
+
     // move to pose 1
+    visual_tools.prompt("Press 'next' to move to target pose 1");    
+    move_to_target_pose(1.596, -0.050, -1.569, -0.790, -0.139, 0.201, 
+        visual_tools, move_group, planning_scene_interface, joint_model_group, text_pose);
 
+    // add collision object
+    visual_tools.prompt("Press 'next' to add object");    
+    moveit_msgs::CollisionObject collision_object1;
+    collision_object1.header.frame_id = move_group.getEndEffectorLink();
+    collision_object1.id = "box3";
+    shape_msgs::SolidPrimitive primitive;
+    primitive.type = primitive.BOX;
+    primitive.dimensions.resize(3);
+    primitive.dimensions[0] = 0.2;
+    primitive.dimensions[1] = 0.2;
+    primitive.dimensions[2] = 0.2;
+    geometry_msgs::Pose box_pose;
+    box_pose.orientation.w = 1.0;
+    box_pose.position.x = 0;
+    box_pose.position.y = 0;
+    box_pose.position.z = 0.1;
+    collision_object1.primitives.push_back(primitive);
+    collision_object1.primitive_poses.push_back(box_pose);
+    collision_object1.operation = collision_object1.ADD;
+    std::vector<moveit_msgs::CollisionObject> collision_objects;
+    collision_objects.push_back(collision_object1);
+    // planning_scene_interface.addCollisionObjects(collision_objects);    // asynchronously
+    planning_scene_interface.applyCollisionObjects(collision_objects);  // synchronously
 
-    // attach object 1
+    // attach object
+    visual_tools.prompt("Press 'next' to attach object");    
+    move_group.attachObject(collision_object1.id);
 
     // move to pose 2
+    visual_tools.prompt("Press 'next' to move to target pose 2");    
+    move_to_target_pose(3.138, 0.053, -1.570, 0.240, -0.524, -0.034, 
+        visual_tools, move_group, planning_scene_interface, joint_model_group, text_pose);
 
-    // detach object 1
+    // detach object
+    visual_tools.prompt("Press 'next' to detach object");    
+    move_group.detachObject(collision_object1.id);
+
+    // go home
+    go_home(visual_tools, move_group);
 }
 
 /**
@@ -137,92 +273,48 @@ void demo06_collision_objects(
      * 
      */
 
-    // set start state
-    visual_tools.prompt("Press 'next' to start target_pose_1 obstacle path planning");
-    move_group.setStartState(*move_group.getCurrentState());
+    move_to_target_pose(3.14, 0.0, -1.57, -0.297, 0.431, -0.018, 
+        visual_tools, move_group, planning_scene_interface, joint_model_group, text_pose);
 
-    // set target pose
-    tf::Quaternion target_pose_1_q;
-    target_pose_1_q.setRPY(3.140, 0.000, -1.569); // radian
-    geometry_msgs::Pose target_pose_1;
-    target_pose_1.orientation.x = target_pose_1_q.x();
-    target_pose_1.orientation.y = target_pose_1_q.y();
-    target_pose_1.orientation.z = target_pose_1_q.z();
-    target_pose_1.orientation.w = target_pose_1_q.w();
-    target_pose_1.position.x = -0.297;
-    target_pose_1.position.y = 0.431;
-    target_pose_1.position.z = -0.018;
-    move_group.setPoseTarget(target_pose_1);
-
-    // path plan
-    moveit::planning_interface::MoveGroupInterface::Plan path_collision_avoid_plan_1;
-    bool success_1 = (move_group.plan(path_collision_avoid_plan_1) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-    ROS_INFO_NAMED("tutorial", "Visualizing path_collision_avoid_plan_1 %s", success_1 ? "" : "FAILED");
-
-    // Visualize the plan in RViz
-    visual_tools.deleteAllMarkers();
-    visual_tools.publishText(text_pose, "demo06_collision_objects: execute path_collision_avoid_plan_1", rvt::WHITE, rvt::XLARGE);
-    visual_tools.publishTrajectoryLine(path_collision_avoid_plan_1.trajectory_, joint_model_group);
-    visual_tools.trigger();
-
-    // Perform planning actions
-    visual_tools.prompt("Press 'next' to execute path_collision_avoid_plan_1");
-    move_group.execute(path_collision_avoid_plan_1);
+    // set path start pose
+    // geometry_msgs::Pose target_pose;
+    // tf::Quaternion target_pose_q;
+    // target_pose_q.setRPY(3.14, 0, -1.57);
+    // target_pose.position.x = -0.297;
+    // target_pose.position.y = 0.431;
+    // target_pose.position.z = -0.018;
+    // target_pose.orientation.x = target_pose_q.x();
+    // target_pose.orientation.y = target_pose_q.y();
+    // target_pose.orientation.z = target_pose_q.z();
+    // target_pose.orientation.w = target_pose_q.w();
+    // // move to path start pose
+    // visual_tools.prompt("Press 'next' to move to target pose 1");
+    // move_group.setPoseTarget(target_pose);
+    // move_group.move();
 
     /**
      * @brief target pose 2 path plan with obstacle
      * 
      */
+    move_to_target_pose(0.929, -1.104, 3.036, -0.361, 0.135, 0.166, 
+        visual_tools, move_group, planning_scene_interface, joint_model_group, text_pose);
 
-    // set start state
-    visual_tools.prompt("Press 'next' to start target_pose_2 obstacle path planning");
-    move_group.setStartState(*move_group.getCurrentState());
+    // set path start pose
+    // target_pose_q.setRPY(0.929, -1.104, 3.036);
+    // target_pose.position.x = -0.361;
+    // target_pose.position.y = 0.135;
+    // target_pose.position.z = 0.166;
+    // target_pose.orientation.x = target_pose_q.x();
+    // target_pose.orientation.y = target_pose_q.y();
+    // target_pose.orientation.z = target_pose_q.z();
+    // target_pose.orientation.w = target_pose_q.w();
+    // // move to path start pose
+    // visual_tools.prompt("Press 'next' to move to target pose 2");
+    // move_group.setPoseTarget(target_pose);
+    // move_group.move();
 
-    // set target pose
-    tf::Quaternion target_pose_2_q;
-    target_pose_2_q.setRPY(0.929, -1.104, 3.036);       // radian
-    geometry_msgs::Pose target_pose_2;
-    target_pose_2.orientation.x = target_pose_2_q.x();
-    target_pose_2.orientation.y = target_pose_2_q.y();
-    target_pose_2.orientation.z = target_pose_2_q.z();
-    target_pose_2.orientation.w = target_pose_2_q.w();
-    target_pose_2.position.x = -0.361;
-    target_pose_2.position.y = 0.135;
-    target_pose_2.position.z = 0.166;
-    move_group.setPoseTarget(target_pose_2);
-
-    // path plan
-    visual_tools.prompt("Press 'next' to start path_collision_avoid_plan_2 planning");
-    moveit::planning_interface::MoveGroupInterface::Plan path_collision_avoid_plan_2;
-    bool success_2 = (move_group.plan(path_collision_avoid_plan_2) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-    ROS_INFO_NAMED("tutorial", "Visualizing path_collision_avoid_plan_2 %s", success_2 ? "" : "FAILED");
-
-    // Visualize the plan in RViz
-    visual_tools.deleteAllMarkers();
-    visual_tools.publishText(text_pose, "demo06_collision_objects: execute path_collision_avoid_plan_2", rvt::WHITE, rvt::XLARGE);
-    visual_tools.publishTrajectoryLine(path_collision_avoid_plan_2.trajectory_, joint_model_group);
-    visual_tools.trigger();
-
-    // Perform planning actions
-    visual_tools.prompt("Press 'next' to execute path_collision_avoid_plan_2");
-    move_group.execute(path_collision_avoid_plan_2);
-
-    /**
-     * @brief go home
-     * 
-     */
-
-    // Move to the home point position
-    visual_tools.prompt("Press 'next' to go home");
-    std::vector<double> home_pose;
-    home_pose.push_back(-0.001255);
-    home_pose.push_back(-0.148822);
-    home_pose.push_back(-1.406503);
-    home_pose.push_back(0.311441);
-    home_pose.push_back(-1.571295);
-    home_pose.push_back(-0.002450);
-    move_group.setJointValueTarget(home_pose);
-    move_group.move();
+    // go home
+    go_home(visual_tools, move_group);
 }
 
 /**
@@ -296,16 +388,7 @@ void demo05_cartesian_interpolation(
     move_group.execute(path_interpolation_plan);
 
     // go home
-    visual_tools.prompt("Press 'next' to go home");
-    std::vector<double> home_pose;
-    home_pose.push_back(-0.001255);
-    home_pose.push_back(-0.148822);
-    home_pose.push_back(-1.406503);
-    home_pose.push_back(0.311441);
-    home_pose.push_back(-1.571295);
-    home_pose.push_back(-0.002450);
-    move_group.setJointValueTarget(home_pose);
-    move_group.move();
+    go_home(visual_tools, move_group);
 }
 
 /**
@@ -454,16 +537,7 @@ void demo03_joint_angle_move(
     move_group.execute(target_pose_2_plan);
 
     // go home
-    visual_tools.prompt("Press 'next' to go to home position");
-    std::vector<double> home_pose;
-    home_pose.push_back(-0.001255);
-    home_pose.push_back(-0.148822);
-    home_pose.push_back(-1.406503);
-    home_pose.push_back(0.311441);
-    home_pose.push_back(-1.571295);
-    home_pose.push_back(-0.002450);
-    move_group.setJointValueTarget(home_pose);
-    move_group.move();
+    go_home(visual_tools, move_group);
 }
 
 /**
@@ -541,17 +615,10 @@ void demo01_joint_cartesian_move(
     Eigen::Isometry3d &text_pose,
     const robot_state::JointModelGroup *joint_model_group)
 {
-    // go to home_pose
     visual_tools.prompt("Press 'next' to start demo01_joint_cartesian_move");
-    std::vector<double> home_pose;
-    home_pose.push_back(-0.001255);
-    home_pose.push_back(-0.148822);
-    home_pose.push_back(-1.406503);
-    home_pose.push_back(0.311441);
-    home_pose.push_back(-1.571295);
-    home_pose.push_back(-0.002450);
-    move_group.setJointValueTarget(home_pose);
-    move_group.move();
+
+    // go home
+    go_home(visual_tools, move_group);
 
     // Set target_pose_1
     visual_tools.prompt("Press 'next' to excute target_pose_1_plan");
@@ -586,10 +653,8 @@ void demo01_joint_cartesian_move(
     // execute target_pose_1_plan
     move_group.execute(target_pose_1_plan);
 
-    // go to home_pose
-    visual_tools.prompt("Press 'next' to go to home position");
-    move_group.setJointValueTarget(home_pose);
-    move_group.move();
+    // go home
+    go_home(visual_tools, move_group);
 }
 
 /**
@@ -638,6 +703,10 @@ int main(int argc, char **argv)
     // Get the end of the basic information
     ROS_INFO_NAMED("tutorial", "End effector link: %s", move_group.getEndEffectorLink().c_str());
 
+    /**
+     * @brief clear scene objects
+     * 
+     */
     demo07_clear_scene(visual_tools, move_group, planning_scene_interface);
 
     /**
@@ -646,37 +715,43 @@ int main(int argc, char **argv)
      * home_pose -> target_pose_1 -> home_pose
      *
      */
-    demo01_joint_cartesian_move(visual_tools, move_group, text_pose, joint_model_group);
+    // demo01_joint_cartesian_move(visual_tools, move_group, text_pose, joint_model_group);
 
     /**
      * @brief Demo: get robot state
      *
      */
-    demo02_get_robot_state(visual_tools, move_group);
+    // demo02_get_robot_state(visual_tools, move_group);
 
     /**
      * @brief Demo: joint move with specified joint angle
      *
      */
-    demo03_joint_angle_move(visual_tools, move_group, joint_model_group, text_pose);
+    // demo03_joint_angle_move(visual_tools, move_group, joint_model_group, text_pose);
 
     /**
      * @brief Demo: cartesian path planning with path constraints
      *
      */
-    demo04_cartesian_path_planning_with_constraints(visual_tools, move_group, joint_model_group, text_pose);
+    // demo04_cartesian_path_planning_with_constraints(visual_tools, move_group, joint_model_group, text_pose);
 
     /**
      * @brief Demo: cartesian path plannning with interpolation
      *
      */
-    demo05_cartesian_interpolation(visual_tools, move_group, joint_model_group, text_pose);
+    // demo05_cartesian_interpolation(visual_tools, move_group, joint_model_group, text_pose);
 
     /**
      * @brief Demo: add obstacle and plan path to avoid obstacle
      * 
      */
     demo06_collision_objects(visual_tools, move_group, planning_scene_interface, joint_model_group, text_pose);
+
+    /**
+     * @brief Demo: attach and detach object
+     * 
+     */
+    demo08_attach_object(visual_tools, move_group, planning_scene_interface, joint_model_group, text_pose);
 
     return 0;
 }

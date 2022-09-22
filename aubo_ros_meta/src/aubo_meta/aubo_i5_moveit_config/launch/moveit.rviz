@@ -165,76 +165,65 @@ Visualization Manager:
         Voxel Rendering: Occupied Voxels
       Scene Robot:
         Attached Body Color: 150; 50; 150
-        Link Tree:
+        Links:
           All Links Enabled: true
           Expand Joint Details: false
           Expand Link Details: false
           Expand Tree: false
-          Link Tree Style: Tree of links
+          Link Tree Style: Links in Alphabetic Order
+          base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          foreArm_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_tip_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          pedestal_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          shoulder_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          upperArm_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           world:
-            Details:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            pedestal_Link:
-              Details:
-                Alpha: 1
-                Show Axes: false
-                Show Trail: false
-              Value: true
-              base_link:
-                Details:
-                  Alpha: 1
-                  Show Axes: false
-                  Show Trail: false
-                Value: true
-                shoulder_Link:
-                  Details:
-                    Alpha: 1
-                    Show Axes: false
-                    Show Trail: false
-                  Value: true
-                  upperArm_Link:
-                    Details:
-                      Alpha: 1
-                      Show Axes: false
-                      Show Trail: false
-                    Value: true
-                    foreArm_Link:
-                      Details:
-                        Alpha: 1
-                        Show Axes: false
-                        Show Trail: false
-                      Value: true
-                      wrist1_Link:
-                        Details:
-                          Alpha: 1
-                          Show Axes: false
-                          Show Trail: false
-                        Value: true
-                        wrist2_Link:
-                          Details:
-                            Alpha: 1
-                            Show Axes: false
-                            Show Trail: false
-                          Value: true
-                          wrist3_Link:
-                            Details:
-                              Alpha: 1
-                              Show Axes: false
-                              Show Trail: false
-                            Value: true
-                            gripper_Link:
-                              Details:
-                                Alpha: 1
-                                Show Axes: false
-                                Show Trail: false
-                              Value: true
-                              gripper_tip_Link:
-                                Details:
-                                  Alpha: 1
-                                  Show Axes: false
-                                  Show Trail: false
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          wrist1_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          wrist2_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          wrist3_Link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
         Robot Alpha: 1
         Show Robot Collision: false
         Show Robot Visual: true
@@ -326,10 +315,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.39479774236679077
+      Pitch: 0.2897969186306
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 4.019932270050049
+      Yaw: 4.3349409103393555
     Saved: ~
 Window Geometry:
   Displays:

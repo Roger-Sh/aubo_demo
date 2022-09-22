@@ -37,9 +37,11 @@
 using namespace aubo_driver;
 int main(int argc, char **argv)
 {
+    // init ros
     ros::init(argc, argv, "aubo_driver");
     ros::NodeHandle n;
 
+    // external_axis_number
     int num = 0;
     ros::param::get("/aubo_driver/external_axis_number", num);
     int N = 3;
@@ -49,8 +51,9 @@ int main(int argc, char **argv)
       ros::param::get("/aubo_driver/external_axis_number", num);
       N--;
     }
-
     ROS_INFO("aubo_driver/external_axis_number: %s", std::to_string(num).c_str());
+    
+    // init robot_driver
     AuboDriver robot_driver(num);
     robot_driver.run();
 
