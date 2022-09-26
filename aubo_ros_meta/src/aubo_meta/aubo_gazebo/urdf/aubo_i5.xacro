@@ -283,7 +283,38 @@
     </joint>
 
 
-    <!-- ////////////////////////////////// i5 gripper_link /////////////////////////////////////////// -->
+    <!--/////////////////////////////// camera_base ////////////////////////////////////-->
+    <link name="camera_base">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <mass value="0" />
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+        <visual>
+            <origin xyz="0.055 0 0.0025" rpy="0 0 0" />
+            <geometry>
+                <box size="0.15 0.05 0.005" />
+            </geometry>
+            <material name="">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.055 0 0.0025" rpy="0 0 0" />
+            <geometry>
+                <box size="0.15 0.05 0.005" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!--/////////////////////////////// camera_base_joint ////////////////////////////////////-->
+    <joint name="camera_base_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="wrist3_Link" />
+        <child link="camera_base" />
+    </joint>
+
+    <!--/////////////////////////////// gripper_Link ////////////////////////////////////-->
     <link name="gripper_Link">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -291,17 +322,17 @@
             <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
         </inertial>
         <visual>
-            <origin xyz="0 0 0.1" rpy="0 0 0" />
+            <origin xyz="0 0 0.105" rpy="0 0 0" />
             <geometry>
                 <!-- <mesh filename="package://aubo_description/meshes/aubo_i5/visual/wrist3_Link.DAE" /> -->
-                <cylinder radius="0.03" length="0.20" />
+                <cylinder radius="0.05" length="0.20" />
             </geometry>
             <material name="">
                 <color rgba="1 1 1 1" />
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 0.1" rpy="0 0 0" />
+            <origin xyz="0 0 0.105" rpy="0 0 0" />
             <geometry>
                 <!-- <mesh filename="package://aubo_description/meshes/aubo_i5/collision/wrist3_Link.STL" /> -->
                 <cylinder radius="0.03" length="0.20" />
@@ -309,20 +340,58 @@
         </collision>
     </link>
 
+    <!--/////////////////////////////// gripper_joint ////////////////////////////////////-->
     <joint name="gripper_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0" />
-        <parent link="wrist3_Link" />
+        <parent link="camera_base" />
         <child link="gripper_Link" />
     </joint>
 
-    <!-- ////////////////////////////////// i5 gripper_tip_link /////////////////////////////////////////// -->
+    <!--/////////////////////////////// gripper_tip_Link ////////////////////////////////////-->
     <link name="gripper_tip_Link"></link>
 
+    <!--/////////////////////////////// gripper_tip_joint ////////////////////////////////////-->
     <joint name="gripper_tip_joint" type="fixed">
         <origin xyz="0 0 0.2" rpy="0 0 0" />
         <parent link="gripper_Link" />
         <child link="gripper_tip_Link" />
     </joint>
+
+    <!--/////////////////////////////// camera_link ////////////////////////////////////-->
+    <link name="camera_link">
+        <visual>
+            <origin xyz="0.105 0 0.03" rpy="0 0 0" />
+            <geometry>
+                <box size="0.05 0.05 0.05" />
+            </geometry>
+            <material name="">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.105 0 0.03" rpy="0 0 0" />
+            <geometry>
+                <box size="0.05 0.05 0.05" />
+            </geometry>
+        </collision>
+    </link>
+
+    <!--/////////////////////////////// camera_joint ////////////////////////////////////-->
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="0 0 0.0" rpy="0 0 0" />
+        <parent link="camera_base" />
+        <child link="camera_link" />
+    </joint>
+
+
+
+
+
+
+
+
+
+
 
     <!-- /////////////////////////////////   i5 pedestal_Link   ////////////////////////////////////// -->
     <link name="pedestal_Link">
