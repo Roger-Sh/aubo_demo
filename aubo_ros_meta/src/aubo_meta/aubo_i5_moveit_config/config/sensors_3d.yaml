@@ -1,15 +1,25 @@
 # The name of this file shouldn't be changed, or else the Setup Assistant won't detect it
 sensors:
-  - far_clipping_plane_distance: 5.0
-    filtered_cloud_topic: filtered_cloud_image
-    image_topic: /head_mount_kinect/depth_registered/image_raw
+  # point cloud
+  - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+    point_cloud_topic: /rs/point_cloud
     max_range: 5.0
-    max_update_rate: 1.0
-    near_clipping_plane_distance: 0.3
-    padding_offset: 0.03
-    padding_scale: 4.0
-    point_cloud_topic: /head_mount_kinect/depth_registered/points
     point_subsample: 1
-    queue_size: 5
-    sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
-    shadow_threshold: 0.2
+
+    padding_offset: 0.1  # unit m
+    padding_scale: 1    # 3
+
+    max_update_rate: 1.0
+    filtered_cloud_topic: filtered_cloud
+
+  # depth image
+  # - sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
+  #   image_topic: /rs/depth_aligned_to_color
+  #   queue_size: 1
+  #   near_clipping_plane_distance: 0.3
+  #   far_clipping_plane_distance: 3
+  #   shadow_threshold: 0.2
+  #   padding_scale: 4.0
+  #   padding_offset: 0.03
+  #   max_update_rate: 0.5
+  #   filtered_cloud_topic: filtered_cloud

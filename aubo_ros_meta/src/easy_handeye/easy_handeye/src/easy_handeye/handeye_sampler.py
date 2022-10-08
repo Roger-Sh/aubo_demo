@@ -62,7 +62,8 @@ class HandeyeSampler(object):
         :rtype: dict[str, ((float, float, float), (float, float, float, float))]
         """
         if time is None:
-            time = Time.now()
+            # time = Time.now()
+            time = Time(0);
 
         # here we trick the library (it is actually made for eye_on_hand only). Trust me, I'm an engineer
         if self.handeye_parameters.eye_on_hand:

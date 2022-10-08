@@ -2,7 +2,6 @@
 <launch>
     <!-- The planning and execution components of MoveIt! configured to run -->
     <!-- using the ROS-Industrial interface. -->
-
     <rosparam command="load" file="$(find aubo_i5_moveit_config)/config/joint_names.yaml" />
 
     <!-- the "sim" argument controls whether we connect to a Simulated or Real robot -->
@@ -57,6 +56,8 @@
     <!-- moveit_publish_scene_from_text -->
     <arg name="scene_file" default="$(find aubo_description)/scene/aubo_i5_demo.scene"/> 
     <node name = "moveit_publish_scene_from_text" pkg= "moveit_ros_planning" type = "moveit_publish_scene_from_text" args= "$(arg scene_file)"/>
+
+    
 
 
 </launch>

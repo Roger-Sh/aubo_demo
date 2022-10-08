@@ -1,0 +1,18 @@
+parameters:
+  eye_on_hand: false
+  freehand_robot_movement: true
+  move_group: manipulator
+  move_group_namespace: /
+  namespace: /aubo_i5_d435_handeyecalibration_eye_on_base/
+  robot_base_frame: base_link
+  robot_effector_frame: gripper_tip_Link
+  tracking_base_frame: camera_frame
+  tracking_marker_frame: aruco_marker_frame
+transformation:
+  qw: 0.4816560228065137
+  qx: -0.873819478713011
+  qy: 0.05509885929326225
+  qz: -0.037564744382389124
+  x: -0.6334178666767767
+  y: -0.9527906415720397
+  z: 0.8941651008941576

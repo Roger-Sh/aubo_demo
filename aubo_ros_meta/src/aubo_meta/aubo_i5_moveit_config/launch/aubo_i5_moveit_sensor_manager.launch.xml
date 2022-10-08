@@ -1,3 +1,13 @@
 <launch>
+    <!-- eyetohand tf -->
+    <!-- quarternion to RPY, here YPR: Z Y X -->
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="cam_eyetohand_pc" args="-0.633 -0.953 0.894 -0.133 -0.013 -2.134 base_link rs_pointcloud"/> -->
+    <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="cam_eyetohand_depth" args="-0.633 -0.953 0.894 -0.133 -0.013 -2.134 base_link rs_depth_aligned_to_color"/> -->
+
+    <!-- eyeinhand tf -->
+    <!-- quarternion to RPY, here YPR: Z Y X -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="cam_eyeinhand_pc" args="0.126 -0.0219 -0.18775 1.575 -0.022 0.003 gripper_tip_Link rs_pointcloud"/>
+
+
 
 </launch>

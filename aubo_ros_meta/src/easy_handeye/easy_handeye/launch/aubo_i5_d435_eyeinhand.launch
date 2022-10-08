@@ -1,8 +1,8 @@
 <launch>
-    <arg name="namespace_prefix" default="aubo_i5_d405_handeyecalibration" />
+    <arg name="namespace_prefix" default="aubo_i5_d435_handeyecalibration" />
 
-    <!-- start rs_d405 -->
-    <include file="$(find rs_ros_wrapper)/launch/rs_cam_d405_720p.launch"/>
+    <!-- start rs_d435 -->
+    <include file="$(find rs_ros_wrapper)/launch/rs_cam_d435_720p.launch"/>
 
     <!-- start aruco_ros -->
     <include file="$(find aruco_ros)/launch/aruco_582_rs.launch"/>
@@ -20,7 +20,7 @@
         <arg name="namespace_prefix" value="$(arg namespace_prefix)" />
         
         <!-- eyeonhand: true, eyeonbase: false -->
-        <arg name="eye_on_hand" value="false" />
+        <arg name="eye_on_hand" value="true" />
 
         <!-- define frames -->
         <arg name="tracking_base_frame" value="camera_frame" />

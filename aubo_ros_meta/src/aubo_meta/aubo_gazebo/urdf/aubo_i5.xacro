@@ -385,14 +385,6 @@
 
 
 
-
-
-
-
-
-
-
-
     <!-- /////////////////////////////////   i5 pedestal_Link   ////////////////////////////////////// -->
     <link name="pedestal_Link">
         <visual>
@@ -412,17 +404,16 @@
     <!-- /////////////////////////////////   world   ////////////////////////////////////// -->
     <link name="world" />
 
+    <!-- /////////////////////////////////   gazebo color   ////////////////////////////////////// -->
+    <gazebo reference="pedestal_Link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
     <joint name="world_joint" type="fixed">
         <parent link="world" />
         <child link="pedestal_Link" />
         <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0" />
     </joint>
-
-
-    <!-- /////////////////////////////////   gazebo color   ////////////////////////////////////// -->
-    <gazebo reference="pedestal_Link">
-        <material>Gazebo/Grey</material>
-    </gazebo>
 
     <!--////////////////////////////////// Transmissions for ROS Control //////////////////////////-->
 
@@ -455,5 +446,29 @@
         </plugin>
     </gazebo>
 
+
+    <!-- <link name="cam_eyetohand">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.05 0.05 0.05" />
+            </geometry>
+            <material name="">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.05 0.05 0.05" />
+            </geometry>
+        </collision>
+    </link> -->
+
+    <!-- <joint name="cam_eyetohand_joint" type="fixed">
+        <origin xyz="-0.863 -0.410 0.721" rpy="-1.6257138 0.0310401 -0.6831306" />
+        <parent link="base_link" />
+        <child link="cam_eyetohand" />
+    </joint> -->
 
 </robot>

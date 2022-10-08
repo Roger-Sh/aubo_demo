@@ -53,7 +53,7 @@ catkin_make
 
 
 
-## Usage
+## Aubo + MoveIt! Usage
 
 - MoveIt + RVIZ 仿真
 
@@ -131,7 +131,13 @@ catkin_make
     <node name = "moveit_publish_scene_from_text" pkg= "moveit_ros_planning" type = "moveit_publish_scene_from_text" args= "$(arg scene_file)"/>
     ```
 
-    
+
+
+
+
+
+## Aubo + Gripper Usage
+
 
 -   Rochu夹爪连接方式
     -   夹爪电源外接
@@ -143,3 +149,73 @@ catkin_make
         -   4号端子接控制柜DO01
 
 ![image-20220922171024410](readme.assets/image-20220922171024410.png)
+
+
+
+## Aubo + MoveIt! + easy_handeye Usage
+
+
+
+-   use easy_handeye trouble shoot
+
+    -   aruco_ros 安装
+
+        -   opencv 3.4 with aruco module 
+        -   camera_info 需要 projection_matrix
+
+    -   easy_handeye
+
+        -   安装 transforms3d
+
+            ```bash
+            sudo apt-get install python3 python3-pip ipython3 build-essential python-dev python3-dev
+            pip install transforms3d==0.3.1
+            ```
+
+        -   'module' object has no attribute 'CALIB_HAND_EYE_TSAI'
+
+            ```bash
+            # install opencv_contrib_python
+            pip install opencv_contrib_python==4.2.0.32 -i https://pypi.tuna.tsinghua.edu.cn/simple
+            
+            # 修改 easy_handeye/src/easy_handeye/handeye_calibration_backend_opencv.py 中 import cv2
+            import sys
+            sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
+            import cv2
+            sys.path.append('/opt/ros/melodic/lib/python2.7/dist-packages')
+            
+            ```
+        
+    -   运行 easy_handeye 出现的问题
+    
+        -   找不到 aruco_marker_frame
+    
+            -   识别到aruco标记时再采样
+    
+        -   ```
+            Error processing request: Lookup would require extrapolation into the past.  Requested time 1664186358.358911991 but the earliest data is at time 1664186358.417051554, when looking up transform from frame [aruco_marker_frame] to frame [camera_frame]
+            ```
+    
+            
+    
+-   easy_handeye usage
+
+    -   eyetohand (eyeonbase)
+
+        ```bash
+        roslaunch easy_handeye aubo_i5_d405_eyetohand.launch
+        ```
+
+        
+
+    -   eyeinhand (eyeonhand)
+
+        ```bash
+        roslaunch easy_handeye aubo_i5_d405_eyeinhand.launch
+        ```
+
+        
+
+
+## occupancy_map
+

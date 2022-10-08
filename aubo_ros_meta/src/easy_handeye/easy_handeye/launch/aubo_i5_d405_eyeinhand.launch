@@ -20,7 +20,7 @@
         <arg name="namespace_prefix" value="$(arg namespace_prefix)" />
         
         <!-- eyeonhand: true, eyeonbase: false -->
-        <arg name="eye_on_hand" value="false" />
+        <arg name="eye_on_hand" value="true" />
 
         <!-- define frames -->
         <arg name="tracking_base_frame" value="camera_frame" />

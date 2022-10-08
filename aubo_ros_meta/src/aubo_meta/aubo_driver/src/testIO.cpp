@@ -187,13 +187,13 @@ int main(int argc, char **argv)
 
     ros::NodeHandle n;
 
-    // test get forward kinematic
+    // test service get forward kinematic
     demo_get_fk(n);
 
-    // test get inverse kinematic
+    // test service get inverse kinematic
     demo_get_ik(n);
 
-    // test set IO
+    // test service set IO
     demo_set_IO(n);
 
     return 0;

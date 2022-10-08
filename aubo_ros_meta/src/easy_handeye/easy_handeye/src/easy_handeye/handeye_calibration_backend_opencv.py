@@ -1,4 +1,8 @@
+import sys
+sys.path.remove('/opt/ros/melodic/lib/python2.7/dist-packages')
 import cv2
+sys.path.append('/opt/ros/melodic/lib/python2.7/dist-packages')
+
 import numpy as np
 
 import transforms3d as tfs
