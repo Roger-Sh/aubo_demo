@@ -4,7 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /MotionPlanning1/Scene Geometry1
+        - /MotionPlanning1
         - /PointCloud21
       Splitter Ratio: 0.49242424964904785
     Tree Height: 372
@@ -270,8 +270,6 @@ Visualization Manager:
           Value: true
         pedestal_Link:
           Value: false
-        rs_depth_aligned_to_color:
-          Value: true
         rs_pointcloud:
           Value: true
         shoulder_Link:
@@ -295,10 +293,6 @@ Visualization Manager:
         world:
           pedestal_Link:
             base_link:
-              rs_depth_aligned_to_color:
-                {}
-              rs_pointcloud:
-                {}
               shoulder_Link:
                 upperArm_Link:
                   foreArm_Link:
@@ -310,7 +304,8 @@ Visualization Manager:
                               {}
                             gripper_Link:
                               gripper_tip_Link:
-                                {}
+                                rs_pointcloud:
+                                  {}
       Update Interval: 0
       Value: true
     - Class: rviz/MarkerArray
